@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BarChart3, Users, FileText, TrendingUp } from "lucide-react";
+import { Agent } from "@/components/agent";
 
 export default function Home() {
   const stats = [
@@ -39,7 +40,7 @@ export default function Home() {
   ];
 
   return (
-    <Layout title="Dashboard" breadcrumb={["Home", "Dashboard"]}>
+    <Layout title="Dashboard">
       <div className="space-y-6">
         {/* Welcome section */}
         <div>
@@ -129,6 +130,9 @@ export default function Home() {
           </Card>
         </div>
       </div>
+
+      {/* AI Agent */}
+      <Agent />
     </Layout>
   );
 }
