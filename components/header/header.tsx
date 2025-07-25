@@ -2,15 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Search,
-  Bell,
-  ChevronDown,
-  Settings,
-  LogOut,
-  User,
-} from "lucide-react";
+import { Bell, ChevronDown, Settings, LogOut, User } from "lucide-react";
 import { useState } from "react";
 
 interface HeaderProps {
@@ -19,11 +11,7 @@ interface HeaderProps {
   breadcrumb?: string[];
 }
 
-export function Header({
-  className,
-  title = "Dashboard",
-  breadcrumb = ["Home"],
-}: HeaderProps) {
+export function Header({ className, title = "Dashboard" }: HeaderProps) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   return (
