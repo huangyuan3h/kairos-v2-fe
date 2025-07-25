@@ -9,7 +9,7 @@ import {
   BarChart3,
   FileText,
   Menu,
-  X,
+  ArrowLeftToLine,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -79,7 +79,7 @@ export function Navigation({ className }: NavigationProps) {
           {isCollapsed ? (
             <Menu className="h-4 w-4" />
           ) : (
-            <X className="h-4 w-4" />
+            <ArrowLeftToLine className="h-4 w-4" />
           )}
         </Button>
       </div>
