@@ -2,22 +2,12 @@
 
 import { useAgent, useAgentActions, useAgentState } from "@/contexts/agent";
 import { useNavigation } from "@/contexts/navigation-context";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Bot,
-  X,
-  Send,
-  Loader2,
-  User,
-  Sparkles,
-  Trash2,
-  Maximize2,
-  Minimize2,
-} from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
+import { AgentDialogHeader } from "./AgentDialogHeader";
+import { AgentDialogMessages } from "./AgentDialogMessages";
+import { AgentDialogInput } from "./AgentDialogInput";
 
 interface AgentDialogProps {
   className?: string;
@@ -29,8 +19,12 @@ export function AgentDialog({ className }: AgentDialogProps) {
   const { isOpen, isLoading, messages, mode } = useAgentState();
   const [inputValue, setInputValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(
+    null
+  ) as React.RefObject<HTMLDivElement>;
+  const inputRef = useRef<HTMLInputElement>(
+    null
+  ) as React.RefObject<HTMLInputElement>;
   const { navWidth } = useNavigation();
 
   // 自动滚动到底部
@@ -110,165 +104,33 @@ export function AgentDialog({ className }: AgentDialogProps) {
         )}
       >
         {/* 头部 */}
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 border-b">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <Bot className="h-4 w-4 text-white" />
-            </div>
-            <div>
-              <CardTitle className="text-lg font-semibold">
-                AI Assistant
-              </CardTitle>
-              <p className="text-xs text-muted-foreground">
-                {isLoading ? "Thinking..." : "Ready to help"}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleMode}
-              className="h-8 w-8 p-0"
-              title={`Switch to ${
-                mode === "sidebar" ? "fullscreen" : "sidebar"
-              } mode`}
-            >
-              {mode === "sidebar" ? (
-                <Maximize2 className="h-4 w-4" />
-              ) : (
-                <Minimize2 className="h-4 w-4" />
-              )}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={clearMessages}
-              className="h-8 w-8 p-0"
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={closeAgent}
-              className="h-8 w-8 p-0"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardHeader>
-
+        <AgentDialogHeader
+          mode={mode}
+          isLoading={isLoading}
+          onToggleMode={toggleMode}
+          onClearMessages={clearMessages}
+          onClose={closeAgent}
+        />
         {/* 消息列表 */}
         <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
-          {messages.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
-                <Sparkles className="h-8 w-8 text-blue-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900">
-                  Welcome to AI Assistant
-                </h3>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Ask me anything about your project or get help with tasks.
-                </p>
-              </div>
-            </div>
-          ) : (
-            messages.map((message) => (
-              <div
-                key={message.id}
-                className={cn(
-                  "flex space-x-3",
-                  message.role === "user" ? "justify-end" : "justify-start"
-                )}
-              >
-                {message.role === "assistant" && (
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Bot className="h-4 w-4 text-white" />
-                  </div>
-                )}
-
-                <div
-                  className={cn(
-                    "max-w-[80%] rounded-lg px-4 py-2",
-                    message.role === "user"
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 text-gray-900"
-                  )}
-                >
-                  <p className="text-sm whitespace-pre-wrap">
-                    {message.content}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-xs mt-1",
-                      message.role === "user"
-                        ? "text-blue-100"
-                        : "text-gray-500"
-                    )}
-                  >
-                    {formatTime(message.timestamp)}
-                  </p>
-                </div>
-
-                {message.role === "user" && (
-                  <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="h-4 w-4 text-gray-600" />
-                  </div>
-                )}
-              </div>
-            ))
-          )}
-
-          {/* 加载状态 */}
-          {isLoading && (
-            <div className="flex space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-                <Bot className="h-4 w-4 text-white" />
-              </div>
-              <div className="bg-gray-100 rounded-lg px-4 py-2">
-                <div className="flex items-center space-x-2">
-                  <Loader2 className="h-4 w-4 animate-spin text-gray-500" />
-                  <span className="text-sm text-gray-500">Thinking...</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <div ref={messagesEndRef} />
+          <AgentDialogMessages
+            messages={messages}
+            isLoading={isLoading}
+            formatTime={formatTime}
+            messagesEndRef={messagesEndRef}
+          />
         </CardContent>
-
         {/* 输入区域 */}
-        <div className="p-4 border-t">
-          <form onSubmit={handleSubmit} className="flex space-x-2">
-            <Input
-              ref={inputRef}
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Ask me anything..."
-              disabled={isSubmitting}
-              className="flex-1"
-            />
-            <Button
-              type="submit"
-              disabled={!inputValue.trim() || isSubmitting}
-              size="sm"
-              className="px-4"
-            >
-              {isSubmitting ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <Send className="h-4 w-4" />
-              )}
-            </Button>
-          </form>
-        </div>
+        <AgentDialogInput
+          inputValue={inputValue}
+          onInputChange={(e) => setInputValue(e.target.value)}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+          inputRef={inputRef}
+        />
       </Card>
     );
 
-    // 根据模式返回不同的容器
     switch (mode) {
       case "fullscreen":
         return (
@@ -279,14 +141,12 @@ export function AgentDialog({ className }: AgentDialogProps) {
             {dialogContent}
           </div>
         );
-
       case "sidebar":
         return (
           <div className="fixed top-0 right-0 h-full w-96 z-50 bg-white border-l border-gray-200">
             {dialogContent}
           </div>
         );
-
       default:
         return null;
     }
