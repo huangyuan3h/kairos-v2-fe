@@ -1,5 +1,5 @@
 // Agent 模式类型定义
-export type AgentMode = "floating" | "fullscreen" | "sidebar";
+export type AgentMode = "fullscreen" | "sidebar";
 
 // Agent 状态类型定义
 export interface AgentState {

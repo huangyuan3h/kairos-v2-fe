@@ -6,5 +6,5 @@ export const initialState: AgentState = {
   isLoading: false,
   messages: [],
   error: null,
-  mode: "floating",
+  mode: "sidebar",
 };

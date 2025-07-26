@@ -14,7 +14,6 @@ import {
   Trash2,
   Maximize2,
   Minimize2,
-  PanelRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
@@ -86,12 +85,10 @@ export function AgentDialog({ className }: AgentDialogProps) {
 
   // 切换模式
   const toggleMode = () => {
-    if (mode === "floating") {
+    if (mode === "sidebar") {
       setMode("fullscreen");
-    } else if (mode === "fullscreen") {
-      setMode("sidebar");
     } else {
-      setMode("floating");
+      setMode("sidebar");
     }
   };
 
@@ -104,9 +101,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
         className={cn(
           "flex flex-col shadow-2xl border-0",
           "bg-white/95 backdrop-blur-sm",
-          mode === "floating" && "w-full max-w-md h-[600px]",
-          mode === "fullscreen" && "w-full h-full",
-          mode === "sidebar" && "w-full h-full",
+          "w-full h-full",
           className
         )}
       >
@@ -132,17 +127,11 @@ export function AgentDialog({ className }: AgentDialogProps) {
               onClick={toggleMode}
               className="h-8 w-8 p-0"
               title={`Switch to ${
-                mode === "floating"
-                  ? "fullscreen"
-                  : mode === "fullscreen"
-                  ? "sidebar"
-                  : "floating"
+                mode === "sidebar" ? "fullscreen" : "sidebar"
               } mode`}
             >
-              {mode === "floating" ? (
+              {mode === "sidebar" ? (
                 <Maximize2 className="h-4 w-4" />
-              ) : mode === "fullscreen" ? (
-                <PanelRight className="h-4 w-4" />
               ) : (
                 <Minimize2 className="h-4 w-4" />
               )}
@@ -277,18 +266,6 @@ export function AgentDialog({ className }: AgentDialogProps) {
 
     // 根据模式返回不同的容器
     switch (mode) {
-      case "floating":
-        return (
-          <div className="fixed inset-0 z-50 flex items-end justify-end p-6">
-            {/* 背景遮罩 */}
-            <div
-              className="absolute inset-0 bg-black/20 backdrop-blur-sm"
-              onClick={closeAgent}
-            />
-            {dialogContent}
-          </div>
-        );
-
       case "fullscreen":
         return (
           <div className="fixed inset-0 z-50 bg-white">{dialogContent}</div>

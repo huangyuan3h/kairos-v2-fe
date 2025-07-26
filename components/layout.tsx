@@ -24,8 +24,8 @@ export function Layout({
     return null;
   }
 
-  // 当 Agent 处于侧边栏模式时，调整布局
-  const isSidebarMode = mode === "sidebar";
+  // 当 Agent 处于侧边栏模式且打开时，调整布局
+  const isSidebarMode = mode === "sidebar" && state.isOpen;
 
   return (
     <div className={cn("flex h-screen bg-gray-50", className)}>
