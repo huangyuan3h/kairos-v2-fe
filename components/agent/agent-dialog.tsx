@@ -114,7 +114,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
     const dialogContent = (
       <Card
         className={cn(
-          "flex flex-col",
+          "flex flex-col py-2",
           mode === "sidebar" &&
             "border-0 bg-white/95 backdrop-blur-sm w-full h-full rounded-xl",
           mode === "fullscreen" &&
