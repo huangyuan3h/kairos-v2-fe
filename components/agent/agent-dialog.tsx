@@ -8,6 +8,7 @@ import { useState, useRef, useEffect } from "react";
 import { AgentDialogHeader } from "./AgentDialogHeader";
 import { AgentDialogMessages } from "./AgentDialogMessages";
 import { AgentDialogInput } from "./AgentDialogInput";
+import { AgentDialogHistory } from "./AgentDialogHistory";
 
 interface AgentDialogProps {
   className?: string;
@@ -19,6 +20,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
   const { isOpen, isLoading, messages, mode } = useAgentState();
   const [inputValue, setInputValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentSessionId, setCurrentSessionId] = useState<string>("1");
   const messagesEndRef = useRef<HTMLDivElement>(
     null
   ) as React.RefObject<HTMLDivElement>;
@@ -88,6 +90,23 @@ export function AgentDialog({ className }: AgentDialogProps) {
     }
   };
 
+  // 会话管理
+  const handleSelectSession = (sessionId: string) => {
+    setCurrentSessionId(sessionId);
+    // TODO: 加载对应会话的消息
+    console.log("切换到会话:", sessionId);
+  };
+
+  const handleNewSession = () => {
+    // TODO: 创建新会话
+    console.log("创建新会话");
+  };
+
+  const handleDeleteSession = (sessionId: string) => {
+    // TODO: 删除会话
+    console.log("删除会话:", sessionId);
+  };
+
   if (!isOpen) return null;
 
   // 渲染不同模式的对话框
@@ -135,10 +154,18 @@ export function AgentDialog({ className }: AgentDialogProps) {
       case "fullscreen":
         return (
           <div
-            className="fixed top-0 right-0 h-full z-50 bg-white"
+            className="fixed top-0 right-0 h-full z-50 bg-white flex"
             style={{ left: navWidth }}
           >
-            {dialogContent}
+            {/* 左侧历史记录 */}
+            <AgentDialogHistory
+              onSelectSession={handleSelectSession}
+              onNewSession={handleNewSession}
+              onDeleteSession={handleDeleteSession}
+              currentSessionId={currentSessionId}
+            />
+            {/* 右侧对话区域 */}
+            <div className="flex-1">{dialogContent}</div>
           </div>
         );
       case "sidebar":
