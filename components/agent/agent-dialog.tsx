@@ -103,8 +103,9 @@ export function AgentDialog({ className }: AgentDialogProps) {
         className={cn(
           "flex flex-col",
           mode === "sidebar" &&
-            "shadow-2xl border-0 bg-white/95 backdrop-blur-sm w-full h-full",
-          mode === "fullscreen" && "w-full h-full bg-white",
+            "border-0 bg-white/95 backdrop-blur-sm w-full h-full rounded-xl",
+          mode === "fullscreen" &&
+            "w-full h-full bg-white rounded-none border-0",
           className
         )}
       >
@@ -281,7 +282,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
 
       case "sidebar":
         return (
-          <div className="fixed top-0 right-0 h-full w-96 z-50 bg-white border-l border-gray-200 shadow-xl">
+          <div className="fixed top-0 right-0 h-full w-96 z-50 bg-white border-l border-gray-200">
             {dialogContent}
           </div>
         );
