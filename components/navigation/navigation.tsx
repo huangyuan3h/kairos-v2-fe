@@ -72,15 +72,13 @@ export function Navigation() {
     >
       {/* Header with toggle button */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
-        {/* Logo section - 使用 flex 布局确保 K icon 居中 */}
-        <div
-          className={cn(
-            "flex items-center transition-all duration-300",
-            isOpen ? "flex-1" : "justify-center"
-          )}
-        >
+        {/* Logo section - 使用相对定位确保 K 位置稳定 */}
+        <div className="relative flex items-center flex-1">
           <div
-            className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center cursor-pointer hover:bg-blue-700 transition-colors flex-shrink-0"
+            className={cn(
+              "w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center cursor-pointer hover:bg-blue-700 transition-colors flex-shrink-0 transition-all duration-300",
+              isOpen ? "ml-0" : "ml-auto mr-auto"
+            )}
             onClick={handleLogoClick}
           >
             <span className="text-white font-bold text-sm">K</span>
@@ -134,13 +132,13 @@ export function Navigation() {
 
       {/* User section */}
       <div className="p-4 border-t border-gray-200">
-        <div
-          className={cn(
-            "flex items-center transition-all duration-300",
-            isOpen ? "space-x-3" : "justify-center"
-          )}
-        >
-          <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
+        <div className="relative flex items-center">
+          <div
+            className={cn(
+              "w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300",
+              isOpen ? "ml-0" : "ml-auto mr-auto"
+            )}
+          >
             <span className="text-gray-600 text-sm font-medium">U</span>
           </div>
           <div
