@@ -9,9 +9,13 @@ import {
   BarChart3,
   FileText,
   ArrowLeftToLine,
+  Globe,
+  ChevronDown,
 } from "lucide-react";
 import { useNavigation } from "@/contexts/navigation-context";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 interface NavigationProps {
   className?: string;
@@ -24,9 +28,28 @@ interface NavItem {
   active?: boolean;
 }
 
+interface Language {
+  code: string;
+  name: string;
+  nativeName: string;
+}
+
 export function Navigation() {
   const { isOpen, toggleNav, navWidth } = useNavigation();
   const router = useRouter();
+  const [currentLang, setCurrentLang] = useState<string>("en");
+
+  const languages: Language[] = [
+    { code: "en", name: "English", nativeName: "English" },
+    { code: "zh-CN", name: "Chinese (Simplified)", nativeName: "中文（简体）" },
+    { code: "fr", name: "French", nativeName: "Français" },
+    { code: "es", name: "Spanish", nativeName: "Español" },
+    { code: "ja", name: "Japanese", nativeName: "日本語" },
+    { code: "ko", name: "Korean", nativeName: "한국어" },
+  ];
+
+  const currentLanguage =
+    languages.find((lang) => lang.code === currentLang) || languages[0];
 
   const navItems: NavItem[] = [
     {
@@ -61,6 +84,12 @@ export function Navigation() {
       // 如果 navigation 已关闭，打开 navigation
       toggleNav();
     }
+  };
+
+  const handleLangChange = (langCode: string) => {
+    setCurrentLang(langCode);
+    // TODO: 这里可以集成 i18n 库进行语言切换
+    console.log("Language changed to:", langCode);
   };
 
   return (
@@ -130,29 +159,54 @@ export function Navigation() {
         ))}
       </div>
 
-      {/* User section */}
+      {/* Language switcher section */}
       <div className="p-4 border-t border-gray-200">
-        <div className="relative flex items-center">
-          <div
-            className={cn(
-              "w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300",
-              isOpen ? "ml-0" : "ml-auto mr-auto"
-            )}
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full flex items-center justify-center gap-2"
+            >
+              <Globe className="h-5 w-5" />
+              <span
+                className={cn(
+                  "transition-all duration-300 overflow-hidden whitespace-nowrap",
+                  isOpen ? "opacity-100 ml-2 w-auto" : "opacity-0 w-0 ml-0"
+                )}
+              >
+                {currentLanguage.nativeName}
+              </span>
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 transition-all duration-300",
+                  isOpen ? "opacity-100" : "opacity-0"
+                )}
+              />
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content
+            side="top"
+            align="center"
+            className="w-48 bg-white border rounded-md shadow-lg p-1"
           >
-            <span className="text-gray-600 text-sm font-medium">U</span>
-          </div>
-          <div
-            className={cn(
-              "transition-all duration-300 overflow-hidden whitespace-nowrap",
-              isOpen ? "opacity-100 ml-2 w-auto" : "opacity-0 w-0 ml-0"
-            )}
-          >
-            <p className="text-sm font-medium text-gray-900 truncate">
-              User Name
-            </p>
-            <p className="text-xs text-muted-foreground">user@example.com</p>
-          </div>
-        </div>
+            {languages.map((language) => (
+              <DropdownMenu.Item
+                key={language.code}
+                onSelect={() => handleLangChange(language.code)}
+                className={cn(
+                  "px-3 py-2 rounded hover:bg-gray-100 cursor-pointer flex items-center justify-between",
+                  currentLang === language.code && "bg-blue-50 text-blue-600"
+                )}
+              >
+                <span>{language.nativeName}</span>
+                {currentLang === language.code && (
+                  <span className="text-xs text-blue-600">✓</span>
+                )}
+              </DropdownMenu.Item>
+            ))}
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </div>
     </nav>
   );
