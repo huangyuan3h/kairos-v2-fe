@@ -1,6 +1,7 @@
 "use client";
 
 import { useAgent, useAgentActions, useAgentState } from "@/contexts/agent";
+import { useNavigation } from "@/contexts/navigation-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,6 +31,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { navWidth } = useNavigation();
 
   // 自动滚动到底部
   const scrollToBottom = () => {
@@ -99,9 +101,10 @@ export function AgentDialog({ className }: AgentDialogProps) {
     const dialogContent = (
       <Card
         className={cn(
-          "flex flex-col shadow-2xl border-0",
-          "bg-white/95 backdrop-blur-sm",
-          "w-full h-full",
+          "flex flex-col",
+          mode === "sidebar" &&
+            "shadow-2xl border-0 bg-white/95 backdrop-blur-sm w-full h-full",
+          mode === "fullscreen" && "w-full h-full bg-white",
           className
         )}
       >
@@ -268,7 +271,12 @@ export function AgentDialog({ className }: AgentDialogProps) {
     switch (mode) {
       case "fullscreen":
         return (
-          <div className="fixed inset-0 z-50 bg-white">{dialogContent}</div>
+          <div
+            className="fixed top-0 right-0 h-full z-50 bg-white"
+            style={{ left: navWidth }}
+          >
+            {dialogContent}
+          </div>
         );
 
       case "sidebar":
