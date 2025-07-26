@@ -1,5 +1,5 @@
 import "./globals.css";
-import { AgentProvider } from "@/contexts/agent-context";
+import { AgentProvider } from "@/contexts/agent";
 
 export default function RootLayout({
   children,

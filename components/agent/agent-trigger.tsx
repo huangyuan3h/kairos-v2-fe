@@ -1,6 +1,6 @@
 "use client";
 
-import { useAgent } from "@/contexts/agent-context";
+import { useAgent, useAgentActions } from "@/contexts/agent";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -16,7 +16,8 @@ interface AgentTriggerProps {
 }
 
 export function AgentTrigger({ className }: AgentTriggerProps) {
-  const { state, toggleAgent } = useAgent();
+  const { state } = useAgent();
+  const { toggleAgent } = useAgentActions();
 
   // 键盘快捷键支持
   useEffect(() => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAgent } from "@/contexts/agent-context";
+import { useAgent, useAgentActions, useAgentState } from "@/contexts/agent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +13,9 @@ interface AgentDialogProps {
 }
 
 export function AgentDialog({ className }: AgentDialogProps) {
-  const { state, closeAgent, addMessage, clearMessages } = useAgent();
+  const { state } = useAgent();
+  const { closeAgent, addMessage, clearMessages } = useAgentActions();
+  const { isOpen, isLoading, messages } = useAgentState();
   const [inputValue, setInputValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -26,14 +28,14 @@ export function AgentDialog({ className }: AgentDialogProps) {
 
   useEffect(() => {
     scrollToBottom();
-  }, [state.messages]);
+  }, [messages]);
 
   // 聚焦输入框
   useEffect(() => {
-    if (state.isOpen) {
+    if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [state.isOpen]);
+  }, [isOpen]);
 
   // 处理消息发送
   const handleSubmit = async (e: React.FormEvent) => {
@@ -71,7 +73,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
-  if (!state.isOpen) return null;
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-end p-6">
@@ -100,7 +102,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
                 AI Assistant
               </CardTitle>
               <p className="text-xs text-muted-foreground">
-                {state.isLoading ? "Thinking..." : "Ready to help"}
+                {isLoading ? "Thinking..." : "Ready to help"}
               </p>
             </div>
           </div>
@@ -126,7 +128,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
 
         {/* 消息列表 */}
         <CardContent className="flex-1 overflow-y-auto p-4 space-y-4">
-          {state.messages.length === 0 ? (
+          {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
                 <Sparkles className="h-8 w-8 text-blue-600" />
@@ -141,7 +143,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
               </div>
             </div>
           ) : (
-            state.messages.map((message) => (
+            messages.map((message) => (
               <div
                 key={message.id}
                 className={cn(
@@ -188,7 +190,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
           )}
 
           {/* 加载状态 */}
-          {state.isLoading && (
+          {isLoading && (
             <div className="flex space-x-3">
               <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
                 <Bot className="h-4 w-4 text-white" />
