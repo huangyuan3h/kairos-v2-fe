@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useAgent } from "./context";
 import { agentActions } from "./actions";
-import { AgentMessage } from "./types";
+import { AgentMessage, AgentMode } from "./types";
 
 // 便捷的 Hook 方法
 export function useAgentActions() {
@@ -49,6 +49,13 @@ export function useAgentActions() {
     dispatch(agentActions.clearMessages());
   }, [dispatch]);
 
+  const setMode = useCallback(
+    (mode: AgentMode) => {
+      dispatch(agentActions.setMode(mode));
+    },
+    [dispatch]
+  );
+
   return {
     openAgent,
     closeAgent,
@@ -57,6 +64,7 @@ export function useAgentActions() {
     addMessage,
     setError,
     clearMessages,
+    setMode,
   };
 }
 
@@ -69,6 +77,7 @@ export function useAgentState() {
     isLoading: state.isLoading,
     messages: state.messages,
     error: state.error,
+    mode: state.mode,
     hasMessages: state.messages.length > 0,
     messageCount: state.messages.length,
   };

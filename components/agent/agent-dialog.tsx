@@ -4,7 +4,18 @@ import { useAgent, useAgentActions, useAgentState } from "@/contexts/agent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bot, X, Send, Loader2, User, Sparkles, Trash2 } from "lucide-react";
+import {
+  Bot,
+  X,
+  Send,
+  Loader2,
+  User,
+  Sparkles,
+  Trash2,
+  Maximize2,
+  Minimize2,
+  PanelRight,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
 
@@ -14,8 +25,8 @@ interface AgentDialogProps {
 
 export function AgentDialog({ className }: AgentDialogProps) {
   const { state } = useAgent();
-  const { closeAgent, addMessage, clearMessages } = useAgentActions();
-  const { isOpen, isLoading, messages } = useAgentState();
+  const { closeAgent, addMessage, clearMessages, setMode } = useAgentActions();
+  const { isOpen, isLoading, messages, mode } = useAgentState();
   const [inputValue, setInputValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -73,21 +84,29 @@ export function AgentDialog({ className }: AgentDialogProps) {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
+  // 切换模式
+  const toggleMode = () => {
+    if (mode === "floating") {
+      setMode("fullscreen");
+    } else if (mode === "fullscreen") {
+      setMode("sidebar");
+    } else {
+      setMode("floating");
+    }
+  };
+
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-end p-6">
-      {/* 背景遮罩 */}
-      <div
-        className="absolute inset-0 bg-black/20 backdrop-blur-sm"
-        onClick={closeAgent}
-      />
-
-      {/* 对话界面 */}
+  // 渲染不同模式的对话框
+  const renderDialog = () => {
+    const dialogContent = (
       <Card
         className={cn(
-          "relative w-full max-w-md h-[600px] flex flex-col shadow-2xl border-0",
+          "flex flex-col shadow-2xl border-0",
           "bg-white/95 backdrop-blur-sm",
+          mode === "floating" && "w-full max-w-md h-[600px]",
+          mode === "fullscreen" && "w-full h-full",
+          mode === "sidebar" && "w-full h-full",
           className
         )}
       >
@@ -107,6 +126,27 @@ export function AgentDialog({ className }: AgentDialogProps) {
             </div>
           </div>
           <div className="flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleMode}
+              className="h-8 w-8 p-0"
+              title={`Switch to ${
+                mode === "floating"
+                  ? "fullscreen"
+                  : mode === "fullscreen"
+                  ? "sidebar"
+                  : "floating"
+              } mode`}
+            >
+              {mode === "floating" ? (
+                <Maximize2 className="h-4 w-4" />
+              ) : mode === "fullscreen" ? (
+                <PanelRight className="h-4 w-4" />
+              ) : (
+                <Minimize2 className="h-4 w-4" />
+              )}
+            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -233,6 +273,38 @@ export function AgentDialog({ className }: AgentDialogProps) {
           </form>
         </div>
       </Card>
-    </div>
-  );
+    );
+
+    // 根据模式返回不同的容器
+    switch (mode) {
+      case "floating":
+        return (
+          <div className="fixed inset-0 z-50 flex items-end justify-end p-6">
+            {/* 背景遮罩 */}
+            <div
+              className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+              onClick={closeAgent}
+            />
+            {dialogContent}
+          </div>
+        );
+
+      case "fullscreen":
+        return (
+          <div className="fixed inset-0 z-50 bg-white">{dialogContent}</div>
+        );
+
+      case "sidebar":
+        return (
+          <div className="fixed top-0 right-0 h-full w-96 z-50 bg-white border-l border-gray-200 shadow-xl">
+            {dialogContent}
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return renderDialog();
 }

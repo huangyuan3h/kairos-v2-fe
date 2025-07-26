@@ -32,6 +32,9 @@ export function agentReducer(
     case "CLEAR_MESSAGES":
       return { ...state, messages: [] };
 
+    case "SET_MODE":
+      return { ...state, mode: action.payload };
+
     default:
       return state;
   }

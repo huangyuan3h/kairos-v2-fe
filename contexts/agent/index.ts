@@ -2,7 +2,7 @@
 export { AgentProvider, useAgent } from "./context";
 
 // 类型导出
-export type { AgentState, AgentMessage, AgentAction } from "./types";
+export type { AgentState, AgentMessage, AgentAction, AgentMode } from "./types";
 
 // 常量导出
 export { initialState } from "./constants";

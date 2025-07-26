@@ -1,4 +1,4 @@
-import { AgentAction, AgentMessage } from "./types";
+import { AgentAction, AgentMessage, AgentMode } from "./types";
 
 // Action 创建器
 export const agentActions = {
@@ -24,4 +24,9 @@ export const agentActions = {
   }),
 
   clearMessages: (): AgentAction => ({ type: "CLEAR_MESSAGES" }),
+
+  setMode: (mode: AgentMode): AgentAction => ({
+    type: "SET_MODE",
+    payload: mode,
+  }),
 };

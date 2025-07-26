@@ -38,6 +38,9 @@ export function AgentTrigger({ className }: AgentTriggerProps) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [toggleAgent, state.isOpen]);
 
+  // 当 agent 打开时隐藏按钮
+  if (state.isOpen) return null;
+
   return (
     <div className={cn("fixed bottom-6 right-6 z-50", className)}>
       <Tooltip>
@@ -48,13 +51,10 @@ export function AgentTrigger({ className }: AgentTriggerProps) {
             className={cn(
               "relative h-12 w-12 rounded-full shadow-lg transition-all duration-200",
               "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700",
-              "text-white border-0 cursor-pointer",
-              state.isOpen && "scale-95"
+              "text-white border-0 cursor-pointer !px-2"
             )}
           >
-            <Bot className="h-8 w-8" />
-
-            {/* 状态指示器 */}
+            <Bot className="!h-6 !w-6" />
             {state.isLoading && (
               <div className="absolute -top-1 -right-1 h-3 w-3 bg-green-500 rounded-full" />
             )}
