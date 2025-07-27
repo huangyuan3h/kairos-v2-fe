@@ -1,0 +1,92 @@
+{
+  "Dashboard": {
+    "welcome": "欢迎回来！",
+    "description": "这是您今天项目的最新动态。",
+    "stats": {
+      "totalProjects": "总项目数",
+      "activeTasks": "进行中任务",
+      "completedTasks": "已完成任务",
+      "teamMembers": "团队成员"
+    },
+    "recentActivity": "最近活动"
+  },
+  "Portfolio": {
+    "title": "投资组合",
+    "description": "您的投资组合概览和表现",
+    "summary": {
+      "totalValue": "投资组合总值",
+      "totalReturn": "总收益",
+      "totalCost": "总成本",
+      "assetsCount": "资产数量",
+      "differentPositions": "不同持仓",
+      "initialInvestment": "初始投资"
+    },
+    "allocation": {
+      "assetAllocation": "资产配置",
+      "marketAllocation": "市场配置"
+    },
+    "assets": {
+      "title": "您的资产",
+      "asset": "资产",
+      "market": "市场",
+      "quantity": "数量",
+      "currentPrice": "当前价格",
+      "marketValue": "市值",
+      "change24h": "24小时变化",
+      "totalReturn": "总收益"
+    },
+    "performance": {
+      "topGainers": "表现最佳",
+      "topLosers": "表现最差"
+    },
+    "actions": {
+      "addAsset": "添加资产",
+      "filter": "筛选",
+      "export": "导出"
+    }
+  },
+  "Analysis": {
+    "title": "投资分析",
+    "description": "基于宏观分析、行业趋势和基本面研究，为您推荐最具投资价值的标的",
+    "investmentLogic": {
+      "title": "投资逻辑",
+      "macroAnalysis": "宏观分析",
+      "macroDescription": "分析全球经济、政策环境和市场趋势",
+      "industryScreening": "行业筛选",
+      "industryDescription": "识别最具增长潜力的行业和细分领域",
+      "targetSelection": "标的精选",
+      "targetDescription": "选择行业内最具竞争优势的优质标的"
+    },
+    "opportunities": {
+      "title": "推荐投资机会",
+      "confidence": "置信度",
+      "expectedReturn": "预期收益",
+      "riskLevel": {
+        "low": "低风险",
+        "medium": "中风险",
+        "high": "高风险"
+      }
+    },
+    "marketOverview": {
+      "title": "市场概览",
+      "usMarket": "美股指数",
+      "chinaMarket": "A股指数",
+      "bitcoin": "比特币",
+      "oilPrice": "原油价格"
+    },
+    "actions": {
+      "updateAnalysis": "更新分析",
+      "setPreferences": "设置偏好",
+      "detailedAnalysis": "详细分析",
+      "addToWatchlist": "加入观察"
+    }
+  },
+  "Navigation": {
+    "dashboard": "仪表盘",
+    "portfolio": "投资组合",
+    "analysis": "投资分析",
+    "users": "用户",
+    "documents": "文档",
+    "settings": "设置"
+  }
+}

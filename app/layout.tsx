@@ -1,13 +1,19 @@
+import type { Metadata } from "next";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Kairos - Investment Management",
+  description: "AI-powered investment management and advisory platform",
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

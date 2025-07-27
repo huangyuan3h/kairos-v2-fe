@@ -1,0 +1,92 @@
+{
+  "Dashboard": {
+    "welcome": "Welcome back!",
+    "description": "Here's what's happening with your projects today.",
+    "stats": {
+      "totalProjects": "Total Projects",
+      "activeTasks": "Active Tasks",
+      "completedTasks": "Completed Tasks",
+      "teamMembers": "Team Members"
+    },
+    "recentActivity": "Recent Activity"
+  },
+  "Portfolio": {
+    "title": "Portfolio",
+    "description": "Your investment portfolio overview and performance",
+    "summary": {
+      "totalValue": "Total Portfolio Value",
+      "totalReturn": "Total Return",
+      "totalCost": "Total Cost",
+      "assetsCount": "Assets Count",
+      "differentPositions": "Different positions",
+      "initialInvestment": "Initial investment"
+    },
+    "allocation": {
+      "assetAllocation": "Asset Allocation",
+      "marketAllocation": "Market Allocation"
+    },
+    "assets": {
+      "title": "Your Assets",
+      "asset": "Asset",
+      "market": "Market",
+      "quantity": "Quantity",
+      "currentPrice": "Current Price",
+      "marketValue": "Market Value",
+      "change24h": "24h Change",
+      "totalReturn": "Total Return"
+    },
+    "performance": {
+      "topGainers": "Top Gainers",
+      "topLosers": "Top Losers"
+    },
+    "actions": {
+      "addAsset": "Add Asset",
+      "filter": "Filter",
+      "export": "Export"
+    }
+  },
+  "Analysis": {
+    "title": "Investment Analysis",
+    "description": "Top-down investment opportunities based on macro analysis, industry trends, and fundamental research",
+    "investmentLogic": {
+      "title": "Investment Logic",
+      "macroAnalysis": "Macro Analysis",
+      "macroDescription": "Analyze global economy, policy environment, and market trends",
+      "industryScreening": "Industry Screening",
+      "industryDescription": "Identify industries and sectors with the highest growth potential",
+      "targetSelection": "Target Selection",
+      "targetDescription": "Select the most competitive assets within each industry"
+    },
+    "opportunities": {
+      "title": "Recommended Opportunities",
+      "confidence": "Confidence",
+      "expectedReturn": "Expected Return",
+      "riskLevel": {
+        "low": "Low Risk",
+        "medium": "Medium Risk",
+        "high": "High Risk"
+      }
+    },
+    "marketOverview": {
+      "title": "Market Overview",
+      "usMarket": "US Market",
+      "chinaMarket": "China Market",
+      "bitcoin": "Bitcoin",
+      "oilPrice": "Oil Price"
+    },
+    "actions": {
+      "updateAnalysis": "Update Analysis",
+      "setPreferences": "Set Preferences",
+      "detailedAnalysis": "Detailed Analysis",
+      "addToWatchlist": "Add to Watchlist"
+    }
+  },
+  "Navigation": {
+    "dashboard": "Dashboard",
+    "portfolio": "Portfolio",
+    "analysis": "Analysis",
+    "users": "Users",
+    "documents": "Documents",
+    "settings": "Settings"
+  }
+}
