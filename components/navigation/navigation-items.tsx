@@ -2,50 +2,37 @@
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Home, Settings, Users, BarChart3, FileText } from "lucide-react";
-import { NavItem } from "./types";
 import { navItems } from "./constants";
+import { useTranslations } from "next-intl";
 
 interface NavigationItemsProps {
   isOpen: boolean;
 }
 
-// Icon 映射
-const iconMap = {
-  Home: Home,
-  Users: Users,
-  FileText: FileText,
-  BarChart3: BarChart3,
-  Settings: Settings,
-};
-
 export function NavigationItems({ isOpen }: NavigationItemsProps) {
+  const t = useTranslations("Navigation");
   return (
     <div className="flex-1 p-4 space-y-2">
-      {navItems.map((item, index) => {
-        const IconComponent = iconMap[item.icon as keyof typeof iconMap];
-
-        return (
-          <Button
-            key={index}
-            variant={item.active ? "secondary" : "ghost"}
+      {navItems.map((item, index) => (
+        <Button
+          key={index}
+          variant={item.active ? "secondary" : "ghost"}
+          className={cn(
+            "w-full justify-start transition-all duration-300 flex items-center",
+            isOpen ? "px-3" : "px-2"
+          )}
+        >
+          {item.icon}
+          <span
             className={cn(
-              "w-full justify-start transition-all duration-300 flex items-center",
-              isOpen ? "px-3" : "px-2"
+              "transition-all duration-300 overflow-hidden whitespace-nowrap",
+              isOpen ? "opacity-100 ml-3 w-auto" : "opacity-0 w-0 ml-0"
             )}
           >
-            <IconComponent className="h-5 w-5" />
-            <span
-              className={cn(
-                "transition-all duration-300 overflow-hidden whitespace-nowrap",
-                isOpen ? "opacity-100 ml-3 w-auto" : "opacity-0 w-0 ml-0"
-              )}
-            >
-              {item.label}
-            </span>
-          </Button>
-        );
-      })}
+            {t(item.label.toLowerCase() as keyof IntlMessages["Navigation"])}
+          </span>
+        </Button>
+      ))}
     </div>
   );
 }

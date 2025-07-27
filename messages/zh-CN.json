@@ -1,0 +1,9 @@
+{
+  "Dashboard": {
+    "welcome": "欢迎回来！",
+    "description": "这是您今天项目的最新动态。"
+  },
+  "Navigation": {
+    "dashboard": "仪表盘"
+  }
+}

@@ -3,24 +3,34 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Globe, ChevronUp } from "lucide-react";
-import { useState } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { useRouter, usePathname } from "next/navigation";
 import { languages } from "./constants";
+import Cookies from "js-cookie";
 
 interface NavigationLanguageProps {
   isOpen: boolean;
 }
 
 export function NavigationLanguage({ isOpen }: NavigationLanguageProps) {
-  const [currentLang, setCurrentLang] = useState<string>("en");
+  const router = useRouter();
+  const pathname = usePathname();
 
+  // Extract current locale from pathname
+  const currentLocale = pathname.split("/")[1] || "en";
   const currentLanguage =
-    languages.find((lang) => lang.code === currentLang) || languages[0];
+    languages.find((lang) => lang.code === currentLocale) || languages[0];
 
-  const handleLangChange = (langCode: string) => {
-    setCurrentLang(langCode);
-    // TODO: 这里可以集成 i18n 库进行语言切换
-    console.log("Language changed to:", langCode);
+  const handleLangChange = (newLocale: string) => {
+    // Save to cookie
+    Cookies.set("NEXT_LOCALE", newLocale, { expires: 365 });
+
+    // Replace current locale in pathname
+    const segments = pathname.split("/");
+    segments[1] = newLocale;
+    const newPath = segments.join("/") || `/${newLocale}`;
+
+    router.push(newPath);
   };
 
   return (
@@ -32,14 +42,11 @@ export function NavigationLanguage({ isOpen }: NavigationLanguageProps) {
             size="sm"
             className="w-full flex items-center justify-center gap-2"
           >
-            {/* 根据 navigation 状态显示不同图标 */}
             {isOpen ? (
               <Globe className="h-5 w-5" />
             ) : (
               <span className="text-lg">{currentLanguage.flag}</span>
             )}
-
-            {/* 语言名称 - 只在打开时显示 */}
             <span
               className={cn(
                 "transition-all duration-300 overflow-hidden whitespace-nowrap",
@@ -48,8 +55,6 @@ export function NavigationLanguage({ isOpen }: NavigationLanguageProps) {
             >
               {currentLanguage.nativeName}
             </span>
-
-            {/* 下拉箭头 - 只在打开时显示 */}
             <ChevronUp
               className={cn(
                 "h-4 w-4 transition-all duration-300",
@@ -69,14 +74,14 @@ export function NavigationLanguage({ isOpen }: NavigationLanguageProps) {
               onSelect={() => handleLangChange(language.code)}
               className={cn(
                 "px-3 py-2 rounded hover:bg-gray-100 cursor-pointer flex items-center justify-between",
-                currentLang === language.code && "bg-blue-50 text-blue-600"
+                currentLocale === language.code && "bg-blue-50 text-blue-600"
               )}
             >
               <div className="flex items-center gap-2">
                 <span className="text-base">{language.flag}</span>
                 <span>{language.nativeName}</span>
               </div>
-              {currentLang === language.code && (
+              {currentLocale === language.code && (
                 <span className="text-xs text-blue-600">✓</span>
               )}
             </DropdownMenu.Item>
