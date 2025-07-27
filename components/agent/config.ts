@@ -36,6 +36,18 @@ export const PAGE_AGENT_CONFIG: Record<string, AgentConfig> = {
     },
   },
 
+  // Analysis页面 - 完整Agent功能
+  analysis: {
+    enabled: true,
+    showTrigger: true,
+    showDialog: true,
+    features: {
+      chat: true,
+      history: true,
+      keyboardShortcuts: true,
+    },
+  },
+
   // Users页面 - 禁用Agent
   users: {
     enabled: false,

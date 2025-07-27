@@ -1,6 +1,6 @@
 "use client";
 
-import { useAgent, useAgentActions, useAgentState } from "@/contexts/agent";
+import { useAgentActions, useAgentState } from "@/contexts/agent";
 import { useNavigation } from "@/contexts/navigation-context";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,6 @@ interface AgentDialogProps {
 }
 
 export function AgentDialog({ className }: AgentDialogProps) {
-  const { state } = useAgent();
   const { closeAgent, addMessage, clearMessages, setMode, setWidth } =
     useAgentActions();
   const { isOpen, isLoading, messages, mode, width } = useAgentState();

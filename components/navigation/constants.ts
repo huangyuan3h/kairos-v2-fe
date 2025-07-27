@@ -8,16 +8,12 @@ export const navItems: NavItem[] = [
     active: true,
   },
   { icon: "PieChart", label: "Portfolio", href: "/portfolio" },
+  { icon: "BarChart3", label: "Analysis", href: "/analysis" },
   { icon: "Users", label: "Users", href: "/users" },
   {
     icon: "FileText",
     label: "Documents",
     href: "/documents",
-  },
-  {
-    icon: "BarChart3",
-    label: "Analytics",
-    href: "/analytics",
   },
   {
     icon: "Settings",

@@ -13,6 +13,5 @@ export interface Language {
 }
 
 export interface NavigationProps {
-  className?: string;
   locale?: string;
 }

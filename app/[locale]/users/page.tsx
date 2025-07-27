@@ -1,22 +1,12 @@
 import { use } from "react";
 import { Layout } from "@/components/layout";
 
-// Import translations from i18n/messages
-import enMessages from "@/i18n/messages/en.json";
-import zhCNMessages from "@/i18n/messages/zh-CN.json";
-
-const messages = {
-  en: enMessages,
-  "zh-CN": zhCNMessages,
-};
-
 export default function UsersPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = use(params);
-  const t = messages[locale as keyof typeof messages] || messages.en;
 
   return (
     <Layout locale={locale} pageName="users">

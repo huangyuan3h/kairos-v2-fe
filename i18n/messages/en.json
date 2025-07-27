@@ -45,12 +45,48 @@
       "export": "Export"
     }
   },
+  "Analysis": {
+    "title": "Investment Analysis",
+    "description": "Top-down investment opportunities based on macro analysis, industry trends, and fundamental research",
+    "investmentLogic": {
+      "title": "Investment Logic",
+      "macroAnalysis": "Macro Analysis",
+      "macroDescription": "Analyze global economy, policy environment, and market trends",
+      "industryScreening": "Industry Screening",
+      "industryDescription": "Identify industries and sectors with the highest growth potential",
+      "targetSelection": "Target Selection",
+      "targetDescription": "Select the most competitive assets within each industry"
+    },
+    "opportunities": {
+      "title": "Recommended Opportunities",
+      "confidence": "Confidence",
+      "expectedReturn": "Expected Return",
+      "riskLevel": {
+        "low": "Low Risk",
+        "medium": "Medium Risk",
+        "high": "High Risk"
+      }
+    },
+    "marketOverview": {
+      "title": "Market Overview",
+      "usMarket": "US Market",
+      "chinaMarket": "China Market",
+      "bitcoin": "Bitcoin",
+      "oilPrice": "Oil Price"
+    },
+    "actions": {
+      "updateAnalysis": "Update Analysis",
+      "setPreferences": "Set Preferences",
+      "detailedAnalysis": "Detailed Analysis",
+      "addToWatchlist": "Add to Watchlist"
+    }
+  },
   "Navigation": {
     "dashboard": "Dashboard",
     "portfolio": "Portfolio",
+    "analysis": "Analysis",
     "users": "Users",
     "documents": "Documents",
-    "analytics": "Analytics",
     "settings": "Settings"
   }
 }

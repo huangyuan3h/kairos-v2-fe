@@ -45,12 +45,48 @@
       "export": "导出"
     }
   },
+  "Analysis": {
+    "title": "投资分析",
+    "description": "基于宏观分析、行业趋势和基本面研究，为您推荐最具投资价值的标的",
+    "investmentLogic": {
+      "title": "投资逻辑",
+      "macroAnalysis": "宏观分析",
+      "macroDescription": "分析全球经济、政策环境和市场趋势",
+      "industryScreening": "行业筛选",
+      "industryDescription": "识别最具增长潜力的行业和细分领域",
+      "targetSelection": "标的精选",
+      "targetDescription": "选择行业内最具竞争优势的优质标的"
+    },
+    "opportunities": {
+      "title": "推荐投资机会",
+      "confidence": "置信度",
+      "expectedReturn": "预期收益",
+      "riskLevel": {
+        "low": "低风险",
+        "medium": "中风险",
+        "high": "高风险"
+      }
+    },
+    "marketOverview": {
+      "title": "市场概览",
+      "usMarket": "美股指数",
+      "chinaMarket": "A股指数",
+      "bitcoin": "比特币",
+      "oilPrice": "原油价格"
+    },
+    "actions": {
+      "updateAnalysis": "更新分析",
+      "setPreferences": "设置偏好",
+      "detailedAnalysis": "详细分析",
+      "addToWatchlist": "加入观察"
+    }
+  },
   "Navigation": {
     "dashboard": "仪表盘",
     "portfolio": "投资组合",
+    "analysis": "投资分析",
     "users": "用户",
     "documents": "文档",
-    "analytics": "分析",
     "settings": "设置"
   }
 }

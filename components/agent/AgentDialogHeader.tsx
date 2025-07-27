@@ -2,7 +2,6 @@
 import { CardHeader, CardTitle } from "@/components/ui/card";
 import { Bot, X, Maximize2, Minimize2, History, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 interface AgentDialogHeaderProps {
@@ -15,7 +14,6 @@ interface AgentDialogHeaderProps {
 
 export function AgentDialogHeader({
   mode,
-  isLoading,
   onToggleMode,
   onClearMessages,
   onClose,

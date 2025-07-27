@@ -7,7 +7,7 @@ import { NavigationHeader } from "./navigation-header";
 import { NavigationItems } from "./navigation-items";
 import { NavigationLanguage } from "./navigation-language";
 
-export function Navigation({ className, locale }: NavigationProps) {
+export function Navigation({ locale }: NavigationProps) {
   const { isOpen, navWidth } = useNavigation();
 
   return (
