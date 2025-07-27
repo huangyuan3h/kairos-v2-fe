@@ -11,6 +11,9 @@ export default $config({
     };
   },
   async run() {
-    new sst.aws.Nextjs("MyWeb");
+    // 部署Next.js应用到AWS
+    new sst.aws.Nextjs("KairosWeb", {
+      path: ".",
+    });
   },
 });
