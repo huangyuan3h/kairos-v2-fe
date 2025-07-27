@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Bot, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface AgentTriggerProps {
   className?: string;
@@ -18,6 +18,12 @@ interface AgentTriggerProps {
 export function AgentTrigger({ className }: AgentTriggerProps) {
   const { state } = useAgent();
   const { toggleAgent } = useAgentActions();
+  const [isClient, setIsClient] = useState(false);
+
+  // 确保客户端渲染
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // 键盘快捷键支持
   useEffect(() => {
@@ -37,6 +43,9 @@ export function AgentTrigger({ className }: AgentTriggerProps) {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [toggleAgent, state.isOpen]);
+
+  // 在服务器端渲染时不显示任何内容，避免hydration错误
+  if (!isClient) return null;
 
   // 当 agent 打开时隐藏按钮
   if (state.isOpen) return null;
