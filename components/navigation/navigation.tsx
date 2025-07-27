@@ -7,7 +7,7 @@ import { NavigationHeader } from "./navigation-header";
 import { NavigationItems } from "./navigation-items";
 import { NavigationLanguage } from "./navigation-language";
 
-export function Navigation({ className }: NavigationProps) {
+export function Navigation({ className, locale }: NavigationProps) {
   const { isOpen, navWidth } = useNavigation();
 
   return (
@@ -21,7 +21,7 @@ export function Navigation({ className }: NavigationProps) {
       <NavigationHeader isOpen={isOpen} />
 
       {/* Navigation items */}
-      <NavigationItems isOpen={isOpen} />
+      <NavigationItems isOpen={isOpen} locale={locale} />
 
       {/* Language switcher */}
       <NavigationLanguage isOpen={isOpen} />

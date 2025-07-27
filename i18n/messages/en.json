@@ -1,0 +1,20 @@
+{
+  "Dashboard": {
+    "welcome": "Welcome back!",
+    "description": "Here's what's happening with your projects today.",
+    "stats": {
+      "totalProjects": "Total Projects",
+      "activeTasks": "Active Tasks",
+      "completedTasks": "Completed Tasks",
+      "teamMembers": "Team Members"
+    },
+    "recentActivity": "Recent Activity"
+  },
+  "Navigation": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "documents": "Documents",
+    "analytics": "Analytics",
+    "settings": "Settings"
+  }
+}

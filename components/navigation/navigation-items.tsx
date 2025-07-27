@@ -3,36 +3,65 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { navItems } from "./constants";
-import { useTranslations } from "next-intl";
+import { Home, Users, FileText, BarChart3, Settings } from "lucide-react";
+
+// Import translations from i18n/messages
+import enMessages from "@/i18n/messages/en.json";
+import zhCNMessages from "@/i18n/messages/zh-CN.json";
 
 interface NavigationItemsProps {
   isOpen: boolean;
+  locale?: string;
 }
 
-export function NavigationItems({ isOpen }: NavigationItemsProps) {
-  const t = useTranslations("Navigation");
+// Icon mapping
+const iconMap = {
+  Home: Home,
+  Users: Users,
+  FileText: FileText,
+  BarChart3: BarChart3,
+  Settings: Settings,
+};
+
+const messages = {
+  en: enMessages,
+  "zh-CN": zhCNMessages,
+};
+
+export function NavigationItems({
+  isOpen,
+  locale = "en",
+}: NavigationItemsProps) {
+  const t =
+    messages[locale as keyof typeof messages]?.Navigation ||
+    messages.en.Navigation;
+
   return (
     <div className="flex-1 p-4 space-y-2">
-      {navItems.map((item, index) => (
-        <Button
-          key={index}
-          variant={item.active ? "secondary" : "ghost"}
-          className={cn(
-            "w-full justify-start transition-all duration-300 flex items-center",
-            isOpen ? "px-3" : "px-2"
-          )}
-        >
-          {item.icon}
-          <span
+      {navItems.map((item, index) => {
+        const IconComponent = iconMap[item.icon as keyof typeof iconMap];
+
+        return (
+          <Button
+            key={index}
+            variant={item.active ? "secondary" : "ghost"}
             className={cn(
-              "transition-all duration-300 overflow-hidden whitespace-nowrap",
-              isOpen ? "opacity-100 ml-3 w-auto" : "opacity-0 w-0 ml-0"
+              "w-full justify-start transition-all duration-300 flex items-center",
+              isOpen ? "px-3" : "px-2"
             )}
           >
-            {t(item.label.toLowerCase() as keyof IntlMessages["Navigation"])}
-          </span>
-        </Button>
-      ))}
+            {IconComponent && <IconComponent className="h-5 w-5" />}
+            <span
+              className={cn(
+                "transition-all duration-300 overflow-hidden whitespace-nowrap",
+                isOpen ? "opacity-100 ml-3 w-auto" : "opacity-0 w-0 ml-0"
+              )}
+            >
+              {t[item.label.toLowerCase() as keyof typeof t] || item.label}
+            </span>
+          </Button>
+        );
+      })}
     </div>
   );
 }
