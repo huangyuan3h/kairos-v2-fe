@@ -18,13 +18,11 @@ interface LayoutProps {
   pageName?: string; // 页面名称，用于自动获取配置
 }
 
-function LayoutContent({
+// 带Agent功能的Layout内容
+function LayoutWithAgent({
   children,
   locale,
   title = "Dashboard",
-  enableAgent = true,
-  agentConfig,
-  pageName,
 }: LayoutProps) {
   const { isOpen, mode, width } = useAgentState();
   const [isClient, setIsClient] = useState(false);
@@ -34,17 +32,9 @@ function LayoutContent({
     setIsClient(true);
   }, []);
 
-  // 获取Agent配置
-  const finalAgentConfig =
-    agentConfig ||
-    (pageName
-      ? getPageAgentConfig(pageName)
-      : { enabled: enableAgent, showTrigger: true, showDialog: true });
-
   // 当 Agent 处于 sidebar 模式且打开时，调整主内容区域的右边距
   const isSidebarMode = mode === "sidebar" && isOpen;
-  const rightMargin =
-    isSidebarMode && isClient && finalAgentConfig.enabled ? width : 0;
+  const rightMargin = isSidebarMode && isClient ? width : 0;
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -68,12 +58,51 @@ function LayoutContent({
   );
 }
 
+// 不带Agent功能的Layout内容
+function LayoutWithoutAgent({
+  children,
+  locale,
+  title = "Dashboard",
+}: LayoutProps) {
+  return (
+    <div className="flex h-screen bg-gray-50">
+      {/* Navigation */}
+      <Navigation locale={locale} />
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <Header title={title} />
+
+        {/* Page Content */}
+        <main className="flex-1 overflow-auto p-6">{children}</main>
+      </div>
+    </div>
+  );
+}
+
 export function Layout(props: LayoutProps) {
+  // 获取Agent配置
+  const finalAgentConfig =
+    props.agentConfig ||
+    (props.pageName
+      ? getPageAgentConfig(props.pageName)
+      : { enabled: props.enableAgent, showTrigger: true, showDialog: true });
+
+  // 如果Agent被禁用，不创建Agent context
+  if (!finalAgentConfig.enabled) {
+    return (
+      <NavigationProvider>
+        <LayoutWithoutAgent {...props} />
+      </NavigationProvider>
+    );
+  }
+
   return (
     <NavigationProvider>
       <BaseAgentProvider>
         <AgentProvider config={props.agentConfig} enabled={props.enableAgent}>
-          <LayoutContent {...props} />
+          <LayoutWithAgent {...props} />
         </AgentProvider>
       </BaseAgentProvider>
     </NavigationProvider>

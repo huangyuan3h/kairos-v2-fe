@@ -1,7 +1,5 @@
 import { use } from "react";
 import { Layout } from "@/components/layout";
-import { AgentTrigger } from "@/components/agent/agent-trigger";
-import { AgentDialog } from "@/components/agent/agent-dialog";
 
 export default function TestAgent({
   params,
@@ -11,7 +9,7 @@ export default function TestAgent({
   const { locale } = use(params);
 
   return (
-    <Layout locale={locale} title="Test Agent">
+    <Layout locale={locale} title="Test Agent" enableAgent={true}>
       <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Test Agent</h1>
@@ -30,10 +28,6 @@ export default function TestAgent({
           </p>
         </div>
       </div>
-
-      {/* AI Agent Components */}
-      <AgentTrigger />
-      <AgentDialog />
     </Layout>
   );
 }
