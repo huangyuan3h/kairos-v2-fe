@@ -60,6 +60,12 @@ export function agentReducer(
         mode: action.payload,
       };
 
+    case "SET_WIDTH":
+      return {
+        ...state,
+        width: action.payload,
+      };
+
     case "RESET_AGENT":
       return {
         ...initialState,

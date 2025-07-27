@@ -9,6 +9,7 @@ import {
   setError,
   clearMessages,
   setMode,
+  setWidth,
   resetAgent,
 } from "./actions";
 import { AgentMessage, AgentMode } from "./types";
@@ -66,6 +67,13 @@ export function useAgentActions() {
     [dispatch]
   );
 
+  const setWidthHandler = useCallback(
+    (width: number) => {
+      dispatch(setWidth(width));
+    },
+    [dispatch]
+  );
+
   const resetAgentHandler = useCallback(() => {
     dispatch(resetAgent());
   }, [dispatch]);
@@ -79,6 +87,7 @@ export function useAgentActions() {
     setError: setErrorHandler,
     clearMessages: clearMessagesHandler,
     setMode: setModeHandler,
+    setWidth: setWidthHandler,
     resetAgent: resetAgentHandler,
   };
 }
@@ -93,6 +102,7 @@ export function useAgentState() {
     messages: state.messages,
     error: state.error,
     mode: state.mode,
+    width: state.width,
     hasMessages: state.messages.length > 0,
     messageCount: state.messages.length,
   };

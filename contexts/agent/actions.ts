@@ -44,6 +44,12 @@ export const setMode = (mode: AgentMode): AgentAction => ({
   payload: mode,
 });
 
+// 设置 Agent 宽度
+export const setWidth = (width: number): AgentAction => ({
+  type: "SET_WIDTH",
+  payload: width,
+});
+
 // 重置 Agent 状态（清除所有数据）
 export const resetAgent = (): AgentAction => ({
   type: "RESET_AGENT",

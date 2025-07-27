@@ -16,11 +16,13 @@ interface AgentDialogProps {
 
 export function AgentDialog({ className }: AgentDialogProps) {
   const { state } = useAgent();
-  const { closeAgent, addMessage, clearMessages, setMode } = useAgentActions();
-  const { isOpen, isLoading, messages, mode } = useAgentState();
+  const { closeAgent, addMessage, clearMessages, setMode, setWidth } =
+    useAgentActions();
+  const { isOpen, isLoading, messages, mode, width } = useAgentState();
   const [inputValue, setInputValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentSessionId, setCurrentSessionId] = useState<string>("1");
+  const [isDragging, setIsDragging] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(
     null
   ) as React.RefObject<HTMLDivElement>;
@@ -107,6 +109,40 @@ export function AgentDialog({ className }: AgentDialogProps) {
     console.log("删除会话:", sessionId);
   };
 
+  // 拖动处理
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+
+      const newWidth = window.innerWidth - e.clientX;
+      const clampedWidth = Math.max(320, Math.min(800, newWidth));
+      setWidth(clampedWidth);
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+  }, [isDragging, setWidth]);
+
   if (!isOpen) return null;
 
   // 渲染不同模式的对话框
@@ -114,9 +150,9 @@ export function AgentDialog({ className }: AgentDialogProps) {
     const dialogContent = (
       <Card
         className={cn(
-          "flex flex-col py-2",
+          "flex flex-col py-2 h-full",
           mode === "sidebar" &&
-            "border-0 bg-white/95 backdrop-blur-sm w-full h-full rounded-xl",
+            "border-0 bg-white/95 backdrop-blur-sm w-full rounded-xl",
           mode === "fullscreen" &&
             "w-full h-full bg-white rounded-none border-0",
           className
@@ -170,7 +206,15 @@ export function AgentDialog({ className }: AgentDialogProps) {
         );
       case "sidebar":
         return (
-          <div className="fixed top-0 right-0 h-full w-96 z-50 bg-white border-l border-gray-200">
+          <div
+            className="fixed top-0 right-0 h-full z-50 bg-white border-l border-gray-200"
+            style={{ width: width }}
+          >
+            {/* 拖动手柄 */}
+            <div
+              className="absolute left-0 top-0 w-1 h-full cursor-col-resize bg-gray-200 hover:bg-gray-300 transition-colors"
+              onMouseDown={handleMouseDown}
+            />
             {dialogContent}
           </div>
         );

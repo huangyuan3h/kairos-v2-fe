@@ -7,4 +7,5 @@ export const initialState: AgentState = {
   messages: [],
   error: null,
   mode: "sidebar",
+  width: 384, // 默认宽度 384px (w-96)
 };

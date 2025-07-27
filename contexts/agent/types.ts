@@ -8,6 +8,7 @@ export interface AgentState {
   messages: AgentMessage[];
   error: string | null;
   mode: AgentMode;
+  width: number; // 添加宽度状态
 }
 
 // 消息类型定义
@@ -28,4 +29,5 @@ export type AgentAction =
   | { type: "SET_ERROR"; payload: string | null }
   | { type: "CLEAR_MESSAGES" }
   | { type: "SET_MODE"; payload: AgentMode }
+  | { type: "SET_WIDTH"; payload: number }
   | { type: "RESET_AGENT" };
