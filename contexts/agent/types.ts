@@ -27,4 +27,5 @@ export type AgentAction =
   | { type: "ADD_MESSAGE"; payload: AgentMessage }
   | { type: "SET_ERROR"; payload: string | null }
   | { type: "CLEAR_MESSAGES" }
-  | { type: "SET_MODE"; payload: AgentMode };
+  | { type: "SET_MODE"; payload: AgentMode }
+  | { type: "RESET_AGENT" };

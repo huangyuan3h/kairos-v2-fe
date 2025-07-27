@@ -1,27 +1,37 @@
 import { useCallback } from "react";
 import { useAgent } from "./context";
-import { agentActions } from "./actions";
+import {
+  openAgent,
+  closeAgent,
+  toggleAgent,
+  setLoading,
+  addMessage as addMessageAction,
+  setError,
+  clearMessages,
+  setMode,
+  resetAgent,
+} from "./actions";
 import { AgentMessage, AgentMode } from "./types";
 
 // 便捷的 Hook 方法
 export function useAgentActions() {
   const { dispatch } = useAgent();
 
-  const openAgent = useCallback(() => {
-    dispatch(agentActions.openAgent());
+  const openAgentHandler = useCallback(() => {
+    dispatch(openAgent());
   }, [dispatch]);
 
-  const closeAgent = useCallback(() => {
-    dispatch(agentActions.closeAgent());
+  const closeAgentHandler = useCallback(() => {
+    dispatch(closeAgent());
   }, [dispatch]);
 
-  const toggleAgent = useCallback(() => {
-    dispatch(agentActions.toggleAgent());
+  const toggleAgentHandler = useCallback(() => {
+    dispatch(toggleAgent());
   }, [dispatch]);
 
-  const setLoading = useCallback(
+  const setLoadingHandler = useCallback(
     (isLoading: boolean) => {
-      dispatch(agentActions.setLoading(isLoading));
+      dispatch(setLoading(isLoading));
     },
     [dispatch]
   );
@@ -33,38 +43,43 @@ export function useAgentActions() {
         id: Date.now().toString(),
         timestamp: new Date(),
       };
-      dispatch(agentActions.addMessage(newMessage));
+      dispatch(addMessageAction(newMessage));
     },
     [dispatch]
   );
 
-  const setError = useCallback(
+  const setErrorHandler = useCallback(
     (error: string | null) => {
-      dispatch(agentActions.setError(error));
+      dispatch(setError(error));
     },
     [dispatch]
   );
 
-  const clearMessages = useCallback(() => {
-    dispatch(agentActions.clearMessages());
+  const clearMessagesHandler = useCallback(() => {
+    dispatch(clearMessages());
   }, [dispatch]);
 
-  const setMode = useCallback(
+  const setModeHandler = useCallback(
     (mode: AgentMode) => {
-      dispatch(agentActions.setMode(mode));
+      dispatch(setMode(mode));
     },
     [dispatch]
   );
 
+  const resetAgentHandler = useCallback(() => {
+    dispatch(resetAgent());
+  }, [dispatch]);
+
   return {
-    openAgent,
-    closeAgent,
-    toggleAgent,
-    setLoading,
+    openAgent: openAgentHandler,
+    closeAgent: closeAgentHandler,
+    toggleAgent: toggleAgentHandler,
+    setLoading: setLoadingHandler,
     addMessage,
-    setError,
-    clearMessages,
-    setMode,
+    setError: setErrorHandler,
+    clearMessages: clearMessagesHandler,
+    setMode: setModeHandler,
+    resetAgent: resetAgentHandler,
   };
 }
 
