@@ -27,9 +27,9 @@ export function AgentDialog({ className }: AgentDialogProps) {
   const messagesEndRef = useRef<HTMLDivElement>(
     null
   ) as React.RefObject<HTMLDivElement>;
-  const inputRef = useRef<HTMLInputElement>(
+  const inputRef = useRef<HTMLTextAreaElement>(
     null
-  ) as React.RefObject<HTMLInputElement>;
+  ) as React.RefObject<HTMLTextAreaElement>;
   const { navWidth } = useNavigation();
 
   // 确保客户端渲染
@@ -190,7 +190,6 @@ export function AgentDialog({ className }: AgentDialogProps) {
           onInputChange={(e) => setInputValue(e.target.value)}
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
-          inputRef={inputRef}
         />
       </Card>
     );
