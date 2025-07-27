@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Globe, ChevronUp } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useRouter, usePathname } from "next/navigation";
 import { languages } from "./constants";
@@ -42,11 +42,7 @@ export function NavigationLanguage({ isOpen }: NavigationLanguageProps) {
             size="sm"
             className="w-full flex items-center justify-center gap-2"
           >
-            {isOpen ? (
-              <Globe className="h-5 w-5" />
-            ) : (
-              <span className="text-lg">{currentLanguage.flag}</span>
-            )}
+            <span className="text-lg">{currentLanguage.flag}</span>
             <span
               className={cn(
                 "transition-all duration-300 overflow-hidden whitespace-nowrap",
