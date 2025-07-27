@@ -41,7 +41,7 @@ export function useAgentActions() {
     (message: Omit<AgentMessage, "id" | "timestamp">) => {
       const newMessage: AgentMessage = {
         ...message,
-        id: Date.now().toString(),
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         timestamp: new Date(),
       };
       dispatch(addMessageAction(newMessage));

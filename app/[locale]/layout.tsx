@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import "../globals.css";
 
 const locales = ["en", "zh-CN", "fr", "es", "ja", "ko"];
 
@@ -22,10 +21,8 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale}>
-      <body>
-        <div data-locale={locale}>{children}</div>
-      </body>
-    </html>
+    <div data-locale={locale} lang={locale}>
+      {children}
+    </div>
   );
 }

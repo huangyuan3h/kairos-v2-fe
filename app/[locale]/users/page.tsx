@@ -1,7 +1,5 @@
 import { use } from "react";
 import { Layout } from "@/components/layout";
-import { AgentTrigger } from "@/components/agent/agent-trigger";
-import { AgentDialog } from "@/components/agent/agent-dialog";
 
 // Import translations from i18n/messages
 import enMessages from "@/i18n/messages/en.json";
@@ -21,7 +19,7 @@ export default function UsersPage({
   const t = messages[locale as keyof typeof messages] || messages.en;
 
   return (
-    <Layout locale={locale}>
+    <Layout locale={locale} pageName="users">
       {/* Users Content */}
       <div className="space-y-6">
         {/* Header Section */}
@@ -184,10 +182,6 @@ export default function UsersPage({
           </div>
         </div>
       </div>
-
-      {/* AI Agent Components */}
-      <AgentTrigger />
-      <AgentDialog />
     </Layout>
   );
 }

@@ -23,7 +23,7 @@ import {
 import { Plus } from "lucide-react";
 
 interface AddAssetDialogProps {
-  onAddAsset?: (asset: any) => void;
+  onAddAsset?: (asset: Record<string, unknown>) => void;
   children?: React.ReactNode;
 }
 

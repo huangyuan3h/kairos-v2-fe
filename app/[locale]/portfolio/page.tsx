@@ -13,8 +13,6 @@ import {
 } from "@/components/ui/table";
 import { Plus, Download, Filter } from "lucide-react";
 import { AddAssetDialog } from "@/components/portfolio/add-asset-dialog";
-import { AgentTrigger } from "@/components/agent/agent-trigger";
-import { AgentDialog } from "@/components/agent/agent-dialog";
 
 // Import translations from i18n/messages
 import enMessages from "@/i18n/messages/en.json";
@@ -90,7 +88,7 @@ export default function Portfolio({
   };
 
   return (
-    <Layout locale={locale} title={t.Portfolio.title}>
+    <Layout locale={locale} title={t.Portfolio.title} pageName="portfolio">
       <div className="space-y-6">
         {/* Page Header */}
         <div className="flex items-center justify-between">
@@ -431,10 +429,6 @@ export default function Portfolio({
           </Card>
         </div>
       </div>
-
-      {/* AI Agent Components */}
-      <AgentTrigger />
-      <AgentDialog />
     </Layout>
   );
 }

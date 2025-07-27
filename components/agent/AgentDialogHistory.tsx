@@ -19,41 +19,41 @@ interface AgentDialogHistoryProps {
   currentSessionId?: string;
 }
 
-// Mock 数据
+// Mock 数据 - 使用固定的时间戳避免hydration错误
 const mockSessions: ChatSession[] = [
   {
     id: "1",
     title: "项目架构讨论",
     lastMessage: "我们需要重新设计数据库结构来支持新的功能需求...",
-    timestamp: new Date(Date.now() - 1000 * 60 * 30), // 30分钟前
+    timestamp: new Date("2024-01-15T10:00:00Z"), // 固定时间戳
     messageCount: 12,
   },
   {
     id: "2",
     title: "代码审查",
     lastMessage: "这个组件的性能优化建议很好，我们可以进一步优化...",
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2小时前
+    timestamp: new Date("2024-01-15T08:00:00Z"), // 固定时间戳
     messageCount: 8,
   },
   {
     id: "3",
     title: "API 设计",
     lastMessage: "RESTful API 的设计原则需要遵循统一的命名规范...",
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24), // 1天前
+    timestamp: new Date("2024-01-14T10:00:00Z"), // 固定时间戳
     messageCount: 15,
   },
   {
     id: "4",
     title: "部署策略",
     lastMessage: "蓝绿部署和滚动部署各有优势，我们需要根据业务场景选择...",
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2), // 2天前
+    timestamp: new Date("2024-01-13T10:00:00Z"), // 固定时间戳
     messageCount: 6,
   },
   {
     id: "5",
     title: "性能优化",
     lastMessage: "通过代码分割和懒加载可以显著提升首屏加载速度...",
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3), // 3天前
+    timestamp: new Date("2024-01-12T10:00:00Z"), // 固定时间戳
     messageCount: 20,
   },
 ];
