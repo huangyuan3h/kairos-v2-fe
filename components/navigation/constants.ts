@@ -7,6 +7,7 @@ export const navItems: NavItem[] = [
     href: "/",
     active: true,
   },
+  { icon: "PieChart", label: "Portfolio", href: "/portfolio" },
   { icon: "Users", label: "Users", href: "/users" },
   {
     icon: "FileText",

@@ -10,8 +10,44 @@
     },
     "recentActivity": "Recent Activity"
   },
+  "Portfolio": {
+    "title": "Portfolio",
+    "description": "Your investment portfolio overview and performance",
+    "summary": {
+      "totalValue": "Total Portfolio Value",
+      "totalReturn": "Total Return",
+      "totalCost": "Total Cost",
+      "assetsCount": "Assets Count",
+      "differentPositions": "Different positions",
+      "initialInvestment": "Initial investment"
+    },
+    "allocation": {
+      "assetAllocation": "Asset Allocation",
+      "marketAllocation": "Market Allocation"
+    },
+    "assets": {
+      "title": "Your Assets",
+      "asset": "Asset",
+      "market": "Market",
+      "quantity": "Quantity",
+      "currentPrice": "Current Price",
+      "marketValue": "Market Value",
+      "change24h": "24h Change",
+      "totalReturn": "Total Return"
+    },
+    "performance": {
+      "topGainers": "Top Gainers",
+      "topLosers": "Top Losers"
+    },
+    "actions": {
+      "addAsset": "Add Asset",
+      "filter": "Filter",
+      "export": "Export"
+    }
+  },
   "Navigation": {
     "dashboard": "Dashboard",
+    "portfolio": "Portfolio",
     "users": "Users",
     "documents": "Documents",
     "analytics": "Analytics",

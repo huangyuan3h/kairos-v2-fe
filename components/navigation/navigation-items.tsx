@@ -3,7 +3,14 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { navItems } from "./constants";
-import { Home, Users, FileText, BarChart3, Settings } from "lucide-react";
+import {
+  Home,
+  Users,
+  FileText,
+  BarChart3,
+  Settings,
+  PieChart,
+} from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 
 // Import translations from i18n/messages
@@ -22,6 +29,7 @@ const iconMap = {
   FileText: FileText,
   BarChart3: BarChart3,
   Settings: Settings,
+  PieChart: PieChart,
 };
 
 const messages = {

@@ -8,7 +8,7 @@ export type { AgentState, AgentMessage, AgentAction, AgentMode } from "./types";
 export { initialState } from "./constants";
 
 // Action 导出
-export { agentActions } from "./actions";
+export * from "./actions";
 
 // Reducer 导出
 export { agentReducer, resetAgentState } from "./reducer";

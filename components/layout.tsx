@@ -10,9 +10,10 @@ import { useEffect, useState } from "react";
 interface LayoutProps {
   children: React.ReactNode;
   locale: string;
+  title?: string;
 }
 
-function LayoutContent({ children, locale }: LayoutProps) {
+function LayoutContent({ children, locale, title = "Dashboard" }: LayoutProps) {
   const { isOpen, mode, width } = useAgentState();
   const [isClient, setIsClient] = useState(false);
 
@@ -38,7 +39,7 @@ function LayoutContent({ children, locale }: LayoutProps) {
         }}
       >
         {/* Header */}
-        <Header title="Dashboard" />
+        <Header title={title} />
 
         {/* Page Content */}
         <main className="flex-1 overflow-auto p-6">{children}</main>

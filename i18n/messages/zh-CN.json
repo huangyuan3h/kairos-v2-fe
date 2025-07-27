@@ -10,8 +10,44 @@
     },
     "recentActivity": "最近活动"
   },
+  "Portfolio": {
+    "title": "投资组合",
+    "description": "您的投资组合概览和表现",
+    "summary": {
+      "totalValue": "投资组合总值",
+      "totalReturn": "总收益",
+      "totalCost": "总成本",
+      "assetsCount": "资产数量",
+      "differentPositions": "不同持仓",
+      "initialInvestment": "初始投资"
+    },
+    "allocation": {
+      "assetAllocation": "资产配置",
+      "marketAllocation": "市场配置"
+    },
+    "assets": {
+      "title": "您的资产",
+      "asset": "资产",
+      "market": "市场",
+      "quantity": "数量",
+      "currentPrice": "当前价格",
+      "marketValue": "市值",
+      "change24h": "24小时变化",
+      "totalReturn": "总收益"
+    },
+    "performance": {
+      "topGainers": "表现最佳",
+      "topLosers": "表现最差"
+    },
+    "actions": {
+      "addAsset": "添加资产",
+      "filter": "筛选",
+      "export": "导出"
+    }
+  },
   "Navigation": {
     "dashboard": "仪表盘",
+    "portfolio": "投资组合",
     "users": "用户",
     "documents": "文档",
     "analytics": "分析",
