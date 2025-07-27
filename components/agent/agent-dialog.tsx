@@ -23,6 +23,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentSessionId, setCurrentSessionId] = useState<string>("1");
   const [isDragging, setIsDragging] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(
     null
   ) as React.RefObject<HTMLDivElement>;
@@ -30,6 +31,11 @@ export function AgentDialog({ className }: AgentDialogProps) {
     null
   ) as React.RefObject<HTMLInputElement>;
   const { navWidth } = useNavigation();
+
+  // 确保客户端渲染
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // 自动滚动到底部
   const scrollToBottom = () => {
@@ -112,6 +118,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
   // 拖动处理
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragging(true);
   };
 
@@ -133,6 +140,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
       document.addEventListener("mouseup", handleMouseUp);
       document.body.style.cursor = "col-resize";
       document.body.style.userSelect = "none";
+      document.body.style.pointerEvents = "none";
     }
 
     return () => {
@@ -140,10 +148,11 @@ export function AgentDialog({ className }: AgentDialogProps) {
       document.removeEventListener("mouseup", handleMouseUp);
       document.body.style.cursor = "";
       document.body.style.userSelect = "";
+      document.body.style.pointerEvents = "";
     };
   }, [isDragging, setWidth]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !isClient) return null;
 
   // 渲染不同模式的对话框
   const renderDialog = () => {
@@ -152,7 +161,7 @@ export function AgentDialog({ className }: AgentDialogProps) {
         className={cn(
           "flex flex-col py-2 h-full",
           mode === "sidebar" &&
-            "border-0 bg-white/95 backdrop-blur-sm w-full rounded-xl",
+            "border-0 bg-white/95 backdrop-blur-sm w-full rounded-none",
           mode === "fullscreen" &&
             "w-full h-full bg-white rounded-none border-0",
           className
@@ -210,11 +219,14 @@ export function AgentDialog({ className }: AgentDialogProps) {
             className="fixed top-0 right-0 h-full z-50 bg-white border-l border-gray-200"
             style={{ width: width }}
           >
-            {/* 拖动手柄 */}
+            {/* 拖动手柄 - 增加宽度和视觉提示 */}
             <div
-              className="absolute left-0 top-0 w-1 h-full cursor-col-resize bg-gray-200 hover:bg-gray-300 transition-colors"
+              className="absolute left-0 top-0 w-4 h-full cursor-col-resize group z-10"
               onMouseDown={handleMouseDown}
-            />
+            >
+              {/* 拖动手柄的视觉指示器 */}
+              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-20 bg-gray-300 rounded-full group-hover:bg-gray-400 group-hover:h-24 transition-all duration-200" />
+            </div>
             {dialogContent}
           </div>
         );
