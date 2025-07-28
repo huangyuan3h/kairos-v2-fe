@@ -22,6 +22,8 @@ export default $config({
             dns: sst.cloudflare.dns(),
           }
         : undefined,
+      // Specify AWS regions
+      regions: ["us-east-1"],
     });
   },
 });
