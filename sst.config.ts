@@ -11,9 +11,17 @@ export default $config({
     };
   },
   async run() {
-    // 部署Next.js应用到AWS
+    const isProduction = $app.stage === "production";
+
+    // Create Next.js app with Cloudflare domain for production
     new sst.aws.Nextjs("KairosWeb", {
       path: ".",
+      domain: isProduction
+        ? {
+            name: "kairos-v2.it-t.xyz",
+            dns: sst.cloudflare.dns(),
+          }
+        : undefined,
     });
   },
 });
