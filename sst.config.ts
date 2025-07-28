@@ -18,7 +18,7 @@ export default $config({
       path: ".",
       domain: isProduction
         ? {
-            name: "kairos-v2.it-t.xyz",
+            name: "kairos-2.it-t.xyz",
             dns: sst.cloudflare.dns(),
           }
         : undefined,
