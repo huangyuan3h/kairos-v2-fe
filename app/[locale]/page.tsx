@@ -1,5 +1,6 @@
 import { use } from "react";
 import { Layout } from "@/components/layout";
+import { RecentReportCard } from "@/components/reports/recent-report-card";
 
 // Import translations from i18n/messages
 import enMessages from "@/i18n/messages/en.json";
@@ -133,6 +134,20 @@ export default function Home({
                 </p>
                 <p className="text-2xl font-semibold text-gray-900">8</p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Reports Section */}
+        <div className="grid grid-cols-1 gap-6">
+          <div className="bg-white rounded-lg border border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h3 className="text-lg font-medium text-gray-900">
+                Recent Report
+              </h3>
+            </div>
+            <div className="p-6">
+              <RecentReportCard />
             </div>
           </div>
         </div>
