@@ -33,7 +33,7 @@ export default function ReportsPage() {
   const hasNext = reports.length === pageSize;
 
   const onRowClick = (id: string) => {
-    router.push(`/${locale}/reports/${id}`);
+    router.push(`/${locale}/reports/${encodeURIComponent(id)}`);
   };
 
   return (

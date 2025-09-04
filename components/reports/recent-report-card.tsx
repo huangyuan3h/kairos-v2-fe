@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useReportSummaries } from "@/lib/hooks/useReports";
 
@@ -12,45 +12,64 @@ export function RecentReportCard() {
   const router = useRouter();
 
   const { data, isLoading, error, mutate } = useReportSummaries({
-    pageSize: 1,
+    pageSize: 5,
   });
-  const report = useMemo(() => data?.reports?.[0], [data]);
+  const reports = useMemo(() => data?.reports ?? [], [data]);
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Recent Report</CardTitle>
-      </CardHeader>
       <CardContent>
         {isLoading ? (
-          <div className="text-gray-500">Loading...</div>
+          <ul className="space-y-3 py-2">
+            {Array.from({ length: 5 }).map((_, idx) => (
+              <li key={idx} className="animate-pulse">
+                <div className="h-4 bg-gray-200 rounded w-2/3 mb-2" />
+                <div className="h-3 bg-gray-100 rounded w-1/3" />
+              </li>
+            ))}
+          </ul>
         ) : error ? (
-          <div className="flex items-center justify-between">
-            <div className="text-red-600">Failed to load recent report</div>
+          <div className="flex items-center justify-between py-2">
+            <div className="text-red-600">Failed to load recent reports</div>
             <Button size="sm" variant="outline" onClick={() => void mutate()}>
               Retry
             </Button>
           </div>
-        ) : !report ? (
-          <div className="text-gray-500">No reports</div>
+        ) : reports.length === 0 ? (
+          <div className="text-gray-500 py-2">No reports</div>
         ) : (
-          <div className="flex items-center justify-between">
-            <div className="min-w-0">
-              <div className="font-medium truncate max-w-[480px]">
-                {report.title}
-              </div>
-              <div className="text-sm text-gray-500">
-                As of {formatDate(report.asOfDate)} · Created{" "}
-                {formatDateTime(report.createdAt)}
-              </div>
-            </div>
-            <Button
-              size="sm"
-              onClick={() => router.push(`/${locale}/reports/${report.id}`)}
-            >
-              View
-            </Button>
-          </div>
+          <ul className="divide-y">
+            {reports.map((r) => (
+              <li
+                key={r.id}
+                className="flex items-center justify-between gap-4 py-3 hover:bg-gray-50 rounded-md px-2 -mx-2 cursor-pointer"
+                onClick={() =>
+                  router.push(`/${locale}/reports/${encodeURIComponent(r.id)}`)
+                }
+              >
+                <div className="min-w-0">
+                  <div className="font-medium truncate max-w-[720px]">
+                    {r.title}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    As of {formatDate(r.asOfDate)} · Created{" "}
+                    {formatDateTime(r.createdAt)}
+                  </div>
+                </div>
+                <Button
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(
+                      `/${locale}/reports/${encodeURIComponent(r.id)}`
+                    );
+                  }}
+                >
+                  View
+                </Button>
+              </li>
+            ))}
+          </ul>
         )}
       </CardContent>
     </Card>

@@ -18,3 +18,24 @@ export interface ReportListResponse {
   pageSize: number;
   totalPages: number;
 }
+
+// Raw shapes from backend (tolerate either `id` or `reportId`)
+export interface ReportSummaryRaw {
+  id?: string;
+  reportId?: string;
+  title: string;
+  asOfDate: string;
+  createdAt: string;
+}
+
+export interface ReportDetailRaw extends ReportSummaryRaw {
+  content: string;
+}
+
+export interface ReportListResponseRaw {
+  reports: ReportSummaryRaw[];
+  totalCount: number;
+  currentPage: number;
+  pageSize: number;
+  totalPages: number;
+}
