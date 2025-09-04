@@ -48,6 +48,12 @@ jobs:
         with:
           bun-version: latest
 
+      # Ensure a stable Node/NPM is available for tools that internally call npx/npm (eg. OpenNext in SST)
+      - name: Setup Node.js (for npx used by SST/OpenNext)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
@@ -57,6 +63,9 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
+      - name: Configure npm registry for OpenNext (fallback mirror)
+        run: npm config set registry https://registry.npmmirror.com
 
       - name: Deploy to production
         run: bunx sst deploy --stage production
