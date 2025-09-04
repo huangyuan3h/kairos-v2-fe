@@ -15,8 +15,13 @@ export default function ReportDetailPage() {
 
   const { data, isLoading, error } = useReportDetail({ id });
 
-  const isNotFound =
-    typeof error === "object" && error && (error as any).status === 404;
+  const isNotFound = Boolean(
+    error &&
+      typeof error === "object" &&
+      "status" in (error as object) &&
+      // Narrow to a record with optional status
+      (error as { status?: number }).status === 404
+  );
 
   const headerTitle = data?.title ? `report - ${data.title}` : "report";
 
@@ -75,8 +80,4 @@ function formatDate(value: string) {
   return d.toISOString().slice(0, 10);
 }
 
-function formatDateTime(value: string) {
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return value;
-  return d.toISOString().replace("T", " ").slice(0, 19);
-}
+// Removed unused date-time formatter to satisfy linter

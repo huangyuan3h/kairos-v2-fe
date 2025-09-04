@@ -111,8 +111,4 @@ function formatDate(value: string) {
   return d.toISOString().slice(0, 10);
 }
 
-function formatDateTime(value: string) {
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return value;
-  return d.toISOString().replace("T", " ").slice(0, 19);
-}
+// Removed unused date-time formatter to satisfy linter
