@@ -43,6 +43,7 @@ function normalizeSummary(raw: ReportSummaryRaw): ReportSummary {
     title: raw.title,
     asOfDate: raw.asOfDate,
     createdAt: raw.createdAt,
+    type: (raw as any).type ?? ("overall" as ReportType),
   };
 }
 

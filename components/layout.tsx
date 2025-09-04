@@ -16,6 +16,8 @@ interface LayoutProps {
   enableAgent?: boolean; // 控制是否启用Agent功能
   agentConfig?: AgentConfig; // Agent配置
   pageName?: string; // 页面名称，用于自动获取配置
+  showBack?: boolean; // 是否展示返回按钮
+  onBack?: () => void; // 返回按钮点击回调
 }
 
 // 带Agent功能的Layout内容
@@ -23,6 +25,8 @@ function LayoutWithAgent({
   children,
   locale,
   title = "Dashboard",
+  showBack,
+  onBack,
 }: LayoutProps) {
   const { isOpen, mode, width } = useAgentState();
   const [isClient, setIsClient] = useState(false);
@@ -49,7 +53,7 @@ function LayoutWithAgent({
         }}
       >
         {/* Header */}
-        <Header title={title} />
+        <Header title={title} showBack={showBack} onBack={onBack} />
 
         {/* Page Content */}
         <main className="flex-1 overflow-auto p-6">{children}</main>
@@ -63,6 +67,8 @@ function LayoutWithoutAgent({
   children,
   locale,
   title = "Dashboard",
+  showBack,
+  onBack,
 }: LayoutProps) {
   return (
     <div className="flex h-screen bg-gray-50">
@@ -72,7 +78,7 @@ function LayoutWithoutAgent({
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <Header title={title} />
+        <Header title={title} showBack={showBack} onBack={onBack} />
 
         {/* Page Content */}
         <main className="flex-1 overflow-auto p-6">{children}</main>

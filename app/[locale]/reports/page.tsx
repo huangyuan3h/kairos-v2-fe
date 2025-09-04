@@ -37,22 +37,8 @@ export default function ReportsPage() {
   };
 
   return (
-    <Layout locale={locale} pageName="reports-list">
+    <Layout locale={locale} pageName="reports-list" title="reports">
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-gray-900">Reports</h1>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              onClick={() => {
-                void mutate();
-              }}
-            >
-              Refresh
-            </Button>
-          </div>
-        </div>
-
         <div className="bg-white rounded-lg border border-gray-200 p-4">
           {isLoading ? (
             <div className="p-8 text-center text-gray-500">Loading...</div>
@@ -69,8 +55,8 @@ export default function ReportsPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Title</TableHead>
-                    <TableHead>As of Date</TableHead>
-                    <TableHead>Created At</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Date</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -83,8 +69,8 @@ export default function ReportsPage() {
                       <TableCell className="max-w-[520px] truncate">
                         {r.title}
                       </TableCell>
+                      <TableCell className="uppercase">{r.type}</TableCell>
                       <TableCell>{formatDate(r.asOfDate)}</TableCell>
-                      <TableCell>{formatDateTime(r.createdAt)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

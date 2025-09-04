@@ -47,13 +47,17 @@ export function RecentReportCard() {
                   router.push(`/${locale}/reports/${encodeURIComponent(r.id)}`)
                 }
               >
-                <div className="min-w-0">
-                  <div className="font-medium truncate max-w-[720px]">
+                <div className="min-w-0 flex items-center gap-3">
+                  <div className="flex-1 truncate text-[15px] font-medium leading-6">
                     {r.title}
                   </div>
-                  <div className="text-sm text-gray-500">
-                    As of {formatDate(r.asOfDate)} · Created{" "}
-                    {formatDateTime(r.createdAt)}
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <span className="uppercase rounded bg-blue-50 text-blue-700 px-1.5 py-0.5 text-[11px] tracking-wide">
+                      {r.type}
+                    </span>
+                    <span className="text-sm text-gray-500">
+                      {formatDate(r.asOfDate)}
+                    </span>
                   </div>
                 </div>
                 <Button
@@ -82,8 +86,4 @@ function formatDate(value: string) {
   return d.toISOString().slice(0, 10);
 }
 
-function formatDateTime(value: string) {
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return value;
-  return d.toISOString().replace("T", " ").slice(0, 19);
-}
+// Note: time display removed from UI; keep helper only if needed elsewhere

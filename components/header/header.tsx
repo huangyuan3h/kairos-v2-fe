@@ -8,12 +8,16 @@ interface HeaderProps {
   className?: string;
   title?: string;
   breadcrumb?: string[];
+  showBack?: boolean;
+  onBack?: () => void;
 }
 
 export function Header({
   className,
   title = "Dashboard",
   breadcrumb,
+  showBack,
+  onBack,
 }: HeaderProps) {
   return (
     <header
@@ -23,7 +27,12 @@ export function Header({
       )}
     >
       {/* Left side - Title and breadcrumb */}
-      <HeaderTitle title={title} breadcrumb={breadcrumb} />
+      <HeaderTitle
+        title={title}
+        breadcrumb={breadcrumb}
+        showBack={showBack}
+        onBack={onBack}
+      />
 
       {/* Right side - Notifications and user menu */}
       <HeaderActions />

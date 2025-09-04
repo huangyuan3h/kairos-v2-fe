@@ -5,6 +5,7 @@ export interface ReportSummary {
   title: string;
   asOfDate: string; // ISO date string
   createdAt: string; // ISO date string
+  type: ReportType;
 }
 
 export interface ReportDetail extends ReportSummary {
@@ -26,6 +27,7 @@ export interface ReportSummaryRaw {
   title: string;
   asOfDate: string;
   createdAt: string;
+  type?: ReportType;
 }
 
 export interface ReportDetailRaw extends ReportSummaryRaw {
