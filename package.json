@@ -31,8 +31,11 @@
     "postcss": "^8.5.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-markdown": "^9.0.3",
     "react-resizable-panels": "^3.0.3",
+    "remark-gfm": "^4.0.0",
     "sst": "3.17.10",
+    "swr": "2.3.6",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {

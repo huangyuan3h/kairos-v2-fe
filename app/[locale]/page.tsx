@@ -1,5 +1,8 @@
 import { use } from "react";
 import { Layout } from "@/components/layout";
+import { RecentReportCard } from "@/components/reports/recent-report-card";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 // Import translations from i18n/messages
 import enMessages from "@/i18n/messages/en.json";
@@ -135,6 +138,17 @@ export default function Home({
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Reports Section */}
+        <div className="grid grid-cols-1 gap-4">
+          <div className="flex items-center justify-between px-1">
+            <h3 className="text-lg font-medium text-gray-900">Recent Report</h3>
+            <Button asChild variant="outline" size="sm">
+              <Link href={`/${locale}/reports`}>View all</Link>
+            </Button>
+          </div>
+          <RecentReportCard />
         </div>
 
         {/* Recent Activity */}
