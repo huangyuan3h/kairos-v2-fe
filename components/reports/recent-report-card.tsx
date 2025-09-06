@@ -42,13 +42,13 @@ export function RecentReportCard() {
             {reports.map((r) => (
               <li
                 key={r.id}
-                className="flex items-center justify-between gap-4 py-3 hover:bg-gray-50 rounded-md px-2 -mx-2 cursor-pointer"
+                className="flex items-center justify-between gap-4 py-2.5 hover:bg-gray-50 rounded-md px-2 -mx-2 cursor-pointer"
                 onClick={() =>
                   router.push(`/${locale}/reports/${encodeURIComponent(r.id)}`)
                 }
               >
                 <div className="min-w-0 flex items-center gap-3">
-                  <div className="flex-1 truncate text-[15px] font-medium leading-6">
+                  <div className="flex-1 truncate text-[15px] font-medium leading-5">
                     {r.title}
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
@@ -60,17 +60,6 @@ export function RecentReportCard() {
                     </span>
                   </div>
                 </div>
-                <Button
-                  size="sm"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(
-                      `/${locale}/reports/${encodeURIComponent(r.id)}`
-                    );
-                  }}
-                >
-                  View
-                </Button>
               </li>
             ))}
           </ul>
