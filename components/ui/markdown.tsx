@@ -10,42 +10,50 @@ type MarkdownProps = {
   content: string;
 };
 
+type MarkdownCodeProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLElement>,
+  HTMLElement
+> & {
+  inline?: boolean;
+  className?: string;
+};
+
 export function Markdown({ content }: MarkdownProps) {
   const components: Components = {
-    h1: ({ node, className, ...props }) => (
+    h1: ({ className, ...props }) => (
       <h1
         className={cn(
-          "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+          "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-foreground mb-6",
           className
         )}
         {...props}
       />
     ),
-    h2: ({ node, className, ...props }) => (
+    h2: ({ className, ...props }) => (
       <h2
         className={cn(
-          "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+          "scroll-m-20 text-2xl font-semibold tracking-tight text-foreground mt-8 mb-4 first:mt-0",
           className
         )}
         {...props}
       />
     ),
-    h3: ({ node, className, ...props }) => (
+    h3: ({ className, ...props }) => (
       <h3
         className={cn(
-          "scroll-m-20 text-2xl font-semibold tracking-tight",
+          "scroll-m-20 text-xl font-semibold tracking-tight text-muted-foreground mt-6 mb-3",
           className
         )}
         {...props}
       />
     ),
-    p: ({ node, className, ...props }) => (
+    p: ({ className, ...props }) => (
       <p
         className={cn("leading-7 [&:not(:first-child)]:mt-6", className)}
         {...props}
       />
     ),
-    a: ({ node, className, ...props }) => (
+    a: ({ className, ...props }) => (
       <a
         className={cn(
           "font-medium text-primary underline underline-offset-4 hover:opacity-90",
@@ -54,10 +62,10 @@ export function Markdown({ content }: MarkdownProps) {
         {...props}
       />
     ),
-    strong: ({ node, className, ...props }) => (
+    strong: ({ className, ...props }) => (
       <strong className={cn("font-semibold", className)} {...props} />
     ),
-    blockquote: ({ node, className, ...props }) => (
+    blockquote: ({ className, ...props }) => (
       <blockquote
         className={cn(
           "mt-6 border-l-2 pl-6 italic text-muted-foreground",
@@ -66,19 +74,20 @@ export function Markdown({ content }: MarkdownProps) {
         {...props}
       />
     ),
-    ul: ({ node, className, ...props }) => (
+    ul: ({ className, ...props }) => (
       <ul className={cn("my-6 ml-6 list-disc", className)} {...props} />
     ),
-    ol: ({ node, className, ...props }) => (
+    ol: ({ className, ...props }) => (
       <ol className={cn("my-6 ml-6 list-decimal", className)} {...props} />
     ),
-    li: ({ node, className, ...props }) => (
+    li: ({ className, ...props }) => (
       <li className={cn("mt-2", className)} {...props} />
     ),
-    hr: ({ node, className, ...props }) => (
+    hr: ({ className, ...props }) => (
       <hr className={cn("my-6 border-muted", className)} {...props} />
     ),
-    code: ({ inline, className, children, ...props }) => {
+    // 'inline' is provided by react-markdown at runtime.
+    code: ({ inline, className, children, ...props }: MarkdownCodeProps) => {
       if (inline) {
         return (
           <code
@@ -104,7 +113,7 @@ export function Markdown({ content }: MarkdownProps) {
         </code>
       );
     },
-    pre: ({ node, className, ...props }) => (
+    pre: ({ className, ...props }) => (
       <pre
         className={cn(
           "overflow-x-auto rounded-lg bg-muted p-4 text-sm",
@@ -113,7 +122,7 @@ export function Markdown({ content }: MarkdownProps) {
         {...props}
       />
     ),
-    table: ({ node, className, children, ...props }) => (
+    table: ({ className, children, ...props }) => (
       <div className="my-6 w-full overflow-x-auto">
         <table
           className={cn("w-full border-collapse text-sm", className)}
@@ -123,13 +132,13 @@ export function Markdown({ content }: MarkdownProps) {
         </table>
       </div>
     ),
-    thead: ({ node, className, ...props }) => (
+    thead: ({ className, ...props }) => (
       <thead
         className={cn("bg-muted text-muted-foreground", className)}
         {...props}
       />
     ),
-    th: ({ node, className, ...props }) => (
+    th: ({ className, ...props }) => (
       <th
         className={cn(
           "border border-border px-3 py-2 text-left font-medium",
@@ -138,19 +147,19 @@ export function Markdown({ content }: MarkdownProps) {
         {...props}
       />
     ),
-    td: ({ node, className, ...props }) => (
+    td: ({ className, ...props }) => (
       <td
         className={cn("border border-border px-3 py-2 align-top", className)}
         {...props}
       />
     ),
-    tbody: ({ node, className, ...props }) => (
+    tbody: ({ className, ...props }) => (
       <tbody className={cn("divide-y divide-border", className)} {...props} />
     ),
   };
 
   return (
-    <div className="max-w-none break-words text-foreground">
+    <div className="markdown max-w-none break-words text-foreground">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
         {content}
       </ReactMarkdown>
