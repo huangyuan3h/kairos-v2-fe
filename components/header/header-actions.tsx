@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { HeaderSearch } from "./header-search";
 
 export function HeaderActions() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -76,6 +77,8 @@ export function HeaderActions() {
 
   return (
     <div className="flex items-center space-x-3">
+      {/* Search */}
+      <HeaderSearch />
       {/* Notifications */}
       <DropdownMenu.Root
         open={isNotificationOpen}
