@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
+import { Layout } from "@/components/layout";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -27,6 +28,7 @@ import {
 export default function SecurityDetailPage() {
   const params = useParams<{ locale: string; symbol: string }>();
   const code = decodeURIComponent(params.symbol);
+  const locale = decodeURIComponent(params.locale);
 
   const [data, setData] = useState<TimeseriesResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -59,7 +61,7 @@ export default function SecurityDetailPage() {
   const points = useMemo<TimeseriesPoint[]>(() => data?.points ?? [], [data]);
 
   return (
-    <div className="p-4 md:p-6">
+    <Layout locale={locale} title={code} pageName="security" showBack>
       <Card>
         <CardHeader className="border-b">
           <div className="flex items-center justify-between">
@@ -96,7 +98,7 @@ export default function SecurityDetailPage() {
           ) : null}
         </CardContent>
       </Card>
-    </div>
+    </Layout>
   );
 }
 
