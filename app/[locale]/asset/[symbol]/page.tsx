@@ -31,7 +31,7 @@ export default function AssetDetailPage() {
     let active = true;
     setLoading(true);
     setError(null);
-    getTimeseries({ code, days: 120 })
+    getTimeseries({ code, days: 240 })
       .then((res) => {
         if (!active) return;
         setData(res);
@@ -90,10 +90,12 @@ export default function AssetDetailPage() {
                 close: p.close,
                 volume: p.volume,
               }))}
-              showMA={false}
-              showMACD={false}
-              showKDJ={false}
-              height={520}
+              showMA
+              showMACD
+              showKDJ
+              showVOL
+              height={824}
+              maxBars={200}
             />
           ) : null}
         </CardContent>
