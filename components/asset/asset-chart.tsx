@@ -97,27 +97,33 @@ export function AssetChart({
 
     chart.applyNewData(toKLineData(data));
 
-    if (showMA) chart.createIndicator("MA", true, { id: "candle_pane" });
+    if (showMA)
+      chart.createIndicator(
+        {
+          name: "MA",
+          /* only MA5/10/20 */ calcParams: [5, 10, 20],
+        } as unknown as any,
+        false,
+        { id: "candle_pane" }
+      );
     if (showMACD) macdPaneRef.current = chart.createIndicator("MACD", true);
     if (showKDJ) kdjPaneRef.current = chart.createIndicator("KDJ", true);
     if (showVOL) volPaneRef.current = chart.createIndicator("VOL", true);
 
     try {
+      chart.setPaneOptions({ id: "candle_pane" });
       if (macdPaneRef.current) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (chart as any).setPaneOptions?.({
+        chart.setPaneOptions({
           id: macdPaneRef.current,
         });
       }
       if (kdjPaneRef.current) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (chart as any).setPaneOptions?.({
+        chart.setPaneOptions({
           id: kdjPaneRef.current,
         });
       }
       if (volPaneRef.current) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (chart as any).setPaneOptions?.({
+        chart.setPaneOptions({
           id: volPaneRef.current,
         });
       }
