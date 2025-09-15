@@ -60,7 +60,6 @@ export function HeaderSearch() {
         setLoading(false);
       }
     }, 300);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   function handleSelect(item: CatalogItem) {

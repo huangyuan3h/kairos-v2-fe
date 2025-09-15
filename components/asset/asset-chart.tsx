@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { init, dispose, type KLineData, type Chart } from "klinecharts";
+import {
+  init,
+  dispose,
+  type KLineData,
+  type Chart,
+  type IndicatorCreate,
+} from "klinecharts";
 
 export type OhlcPoint = {
   date: string;
@@ -102,7 +108,7 @@ export function AssetChart({
         {
           name: "MA",
           /* only MA5/10/20 */ calcParams: [5, 10, 20],
-        } as unknown as any,
+        } as unknown as IndicatorCreate,
         false,
         { id: "candle_pane" }
       );
