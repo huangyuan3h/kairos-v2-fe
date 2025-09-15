@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import { Layout } from "@/components/layout";
+import { AssetChart } from "@/components/asset";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -11,14 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import {
   getTimeseries,
   type TimeseriesPoint,
@@ -88,74 +81,23 @@ export default function AssetDetailPage() {
         </CardHeader>
         <CardContent className="py-4">
           {!loading && !error && points.length > 0 ? (
-            <div className="space-y-4">
-              {asset === "index" ? (
-                <IndexTable points={points} />
-              ) : (
-                <StockTable points={points} />
-              )}
-            </div>
+            <AssetChart
+              data={points.map((p) => ({
+                date: p.date,
+                open: p.open,
+                high: p.high,
+                low: p.low,
+                close: p.close,
+                volume: p.volume,
+              }))}
+              showMA={false}
+              showMACD={false}
+              showKDJ={false}
+              height={520}
+            />
           ) : null}
         </CardContent>
       </Card>
     </Layout>
   );
 }
-
-function IndexTable({ points }: { points: TimeseriesPoint[] }) {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Date</TableHead>
-          <TableHead className="text-right">Close</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {points.map((p) => (
-          <TableRow key={p.date}>
-            <TableCell>{p.date}</TableCell>
-            <TableCell className="text-right">{fmt(p.close)}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
-}
-
-function StockTable({ points }: { points: TimeseriesPoint[] }) {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Date</TableHead>
-          <TableHead className="text-right">Open</TableHead>
-          <TableHead className="text-right">High</TableHead>
-          <TableHead className="text-right">Low</TableHead>
-          <TableHead className="text-right">Close</TableHead>
-          <TableHead className="text-right">Volume</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {points.map((p) => (
-          <TableRow key={p.date}>
-            <TableCell>{p.date}</TableCell>
-            <TableCell className="text-right">{fmt(p.open)}</TableCell>
-            <TableCell className="text-right">{fmt(p.high)}</TableCell>
-            <TableCell className="text-right">{fmt(p.low)}</TableCell>
-            <TableCell className="text-right">{fmt(p.close)}</TableCell>
-            <TableCell className="text-right">{fmt(p.volume)}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
-}
-
-function fmt(n?: number) {
-  if (n === undefined || n === null) return "-";
-  if (typeof n !== "number") return String(n);
-  return Intl.NumberFormat(undefined, { maximumFractionDigits: 4 }).format(n);
-}
-
-
