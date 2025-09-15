@@ -66,7 +66,7 @@ export function HeaderSearch() {
   function handleSelect(item: CatalogItem) {
     setOpen(false);
     setQuery("");
-    router.push(`/${locale}/security/${encodeURIComponent(item.symbol)}`);
+    router.push(`/${locale}/asset/${encodeURIComponent(item.symbol)}`);
   }
 
   return (

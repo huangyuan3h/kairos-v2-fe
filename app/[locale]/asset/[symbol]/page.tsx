@@ -25,7 +25,7 @@ import {
   type TimeseriesResponse,
 } from "@/lib/api/market";
 
-export default function SecurityDetailPage() {
+export default function AssetDetailPage() {
   const params = useParams<{ locale: string; symbol: string }>();
   const code = decodeURIComponent(params.symbol);
   const locale = decodeURIComponent(params.locale);
@@ -61,7 +61,7 @@ export default function SecurityDetailPage() {
   const points = useMemo<TimeseriesPoint[]>(() => data?.points ?? [], [data]);
 
   return (
-    <Layout locale={locale} title={code} pageName="security" showBack>
+    <Layout locale={locale} title={code} pageName="asset" showBack>
       <Card>
         <CardHeader className="border-b">
           <div className="flex items-center justify-between">
@@ -157,3 +157,5 @@ function fmt(n?: number) {
   if (typeof n !== "number") return String(n);
   return Intl.NumberFormat(undefined, { maximumFractionDigits: 4 }).format(n);
 }
+
+
