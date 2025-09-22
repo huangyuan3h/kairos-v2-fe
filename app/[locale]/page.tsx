@@ -1,6 +1,7 @@
 import { use } from "react";
 import { Layout } from "@/components/layout";
 import { RecentReportCard } from "@/components/reports/recent-report-card";
+import { MacroIndexOverview } from "@/components/reports";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -32,6 +33,9 @@ export default function Home({
           </h1>
           <p className="text-gray-600 mt-2">{t.Dashboard.description}</p>
         </div>
+
+        {/* Macro Overview */}
+        <MacroIndexOverview />
 
         {/* Reports Section */}
         <div className="grid grid-cols-1 gap-4">
