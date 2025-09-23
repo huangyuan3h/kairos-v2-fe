@@ -129,6 +129,12 @@ export const macroCategories: MacroCategory[] = [
         icon: "BarChart2",
       },
       {
+        symbol: "US:DOW",
+        name: "Dow Jones Industrial Average",
+        asset_type: "index",
+        icon: "BarChart2",
+      },
+      {
         symbol: "GLOBAL:MSCI_WORLD",
         name: "MSCI World Index",
         asset_type: "index",
@@ -186,4 +192,13 @@ export const macroCategories: MacroCategory[] = [
       },
     ],
   },
+];
+
+// A small set of P0 indicators to highlight at the top of dashboard
+// Keep symbols consistent with macroCategories items
+export const macroFeaturedSymbols: string[] = [
+  "GLOBAL:DXY", // Dollar Index
+  "US:SPX", // S&P 500
+  "US:NDX", // Nasdaq-100
+  "CN:CSI300", // CSI 300
 ];

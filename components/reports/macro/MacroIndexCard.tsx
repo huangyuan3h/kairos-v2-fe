@@ -2,7 +2,6 @@
 
 import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { MiniSparkline } from "./MiniSparkline";
 import * as Icons from "lucide-react";
@@ -11,6 +10,7 @@ import type { MacroItem } from "./types";
 type Props = {
   item: MacroItem;
   categoryColor?: string;
+  variant?: "default" | "hero" | "kpi";
 };
 
 type MockQuote = {
@@ -46,36 +46,75 @@ function mockQuote(symbol: string): MockQuote {
   return { price, change, changePct: changePct * 100, series };
 }
 
-export function MacroIndexCard({ item, categoryColor = "blue" }: Props) {
+export function MacroIndexCard({ item, variant = "default" }: Props) {
   const quote = useMemo(() => mockQuote(item.symbol), [item.symbol]);
   const isUp = quote.change >= 0;
   const Arrow = isUp ? Icons.TrendingUp : Icons.TrendingDown;
-  const Icon =
-    (Icons as Record<string, any>)[item.icon || "BarChart2"] ?? Icons.BarChart2;
+  // Decorative icon and asset-type label removed per compact design
 
-  const colorClass = isUp
-    ? `text-${categoryColor}-600`
-    : `text-${categoryColor}-700`;
+  if (variant === "kpi") {
+    return (
+      <div className="rounded-xl border bg-background p-5 shadow-sm">
+        <div className="flex items-start justify-between">
+          <div className="text-sm font-medium text-muted-foreground truncate">
+            {item.name}
+          </div>
+          <div
+            className={cn(
+              "flex items-center gap-1 rounded-full border px-2 py-1 text-xs",
+              isUp
+                ? "text-emerald-700 border-emerald-200 bg-emerald-50"
+                : "text-rose-700 border-rose-200 bg-rose-50"
+            )}
+          >
+            <Arrow className="h-3.5 w-3.5" />
+            {quote.changePct.toFixed(1)}%
+          </div>
+        </div>
+        <div className="mt-2.5 text-3xl font-semibold">
+          {formatNumber(quote.price)}
+        </div>
+        <div className="mt-2 text-sm text-muted-foreground">
+          {isUp ? "Trending up this period" : "Down this period"}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <Card className="overflow-hidden">
-      <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-base font-medium truncate">
+    <Card
+      className={cn(
+        "overflow-hidden",
+        variant === "hero" ? "ring-1 ring-gray-100" : undefined
+      )}
+    >
+      <CardHeader
+        className={cn(variant === "hero" ? "px-4 pt-3 pb-1" : "px-4 pt-2 pb-1")}
+      >
+        <div className="flex items-center">
+          <CardTitle
+            className={cn(
+              "truncate",
+              variant === "hero"
+                ? "text-base font-semibold"
+                : "text-sm font-medium"
+            )}
+          >
             {item.name}
           </CardTitle>
-          <Badge variant="secondary" className="uppercase">
-            {item.asset_type}
-          </Badge>
-        </div>
-        <div className="mt-1 text-xs text-muted-foreground truncate">
-          {item.symbol}
         </div>
       </CardHeader>
-      <CardContent className="pt-0">
-        <div className="flex items-center justify-between">
+      <CardContent
+        className={cn("pt-0 px-4", variant === "hero" ? "pb-2" : "pb-1.5")}
+      >
+        <div className="flex items-center justify-start gap-3">
           <div className="flex items-baseline gap-2">
-            <div className="text-2xl font-semibold">
+            <div
+              className={cn(
+                variant === "hero" ? "text-2xl" : "text-xl",
+                "font-semibold"
+              )}
+            >
               {formatNumber(quote.price)}
             </div>
             <div
@@ -84,17 +123,16 @@ export function MacroIndexCard({ item, categoryColor = "blue" }: Props) {
                 isUp ? "text-emerald-600" : "text-rose-600"
               )}
             >
-              <Arrow className="h-4 w-4" />
+              <Arrow className="h-3.5 w-3.5" />
               {formatNumber(quote.change)}
               <span className="text-xs">({quote.changePct.toFixed(2)}%)</span>
             </div>
           </div>
-          <Icon className={cn("h-5 w-5", colorClass)} />
         </div>
-        <div className="mt-2">
+        <div className={cn(variant === "hero" ? "mt-2" : "mt-1.5")}>
           <MiniSparkline
             data={quote.series}
-            height={40}
+            height={variant === "hero" ? 44 : 36}
             stroke={isUp ? "#059669" : "#e11d48"}
             fill={isUp ? "#059669" : "#e11d48"}
           />
