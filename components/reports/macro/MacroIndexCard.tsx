@@ -89,12 +89,12 @@ export function MacroIndexCard({ item, variant = "default" }: Props) {
       )}
     >
       <CardHeader
-        className={cn(variant === "hero" ? "px-4 pt-3 pb-1" : "px-4 pt-2 pb-1")}
+        className={cn(variant === "hero" ? "px-4 pt-2" : "px-4 pt-1.5")}
       >
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
           <CardTitle
             className={cn(
-              "truncate",
+              "truncate text-center w-full",
               variant === "hero"
                 ? "text-base font-semibold"
                 : "text-sm font-medium"
@@ -105,10 +105,10 @@ export function MacroIndexCard({ item, variant = "default" }: Props) {
         </div>
       </CardHeader>
       <CardContent
-        className={cn("pt-0 px-4", variant === "hero" ? "pb-2" : "pb-1.5")}
+        className={cn("pt-0 px-4", variant === "hero" ? "pb-1.5" : "pb-1")}
       >
-        <div className="flex items-center justify-start gap-3">
-          <div className="flex items-baseline gap-2">
+        <div className="flex items-center justify-center gap-3">
+          <div className="flex items-center gap-2">
             <div
               className={cn(
                 variant === "hero" ? "text-2xl" : "text-xl",
@@ -129,7 +129,13 @@ export function MacroIndexCard({ item, variant = "default" }: Props) {
             </div>
           </div>
         </div>
-        <div className={cn(variant === "hero" ? "mt-2" : "mt-1.5")}>
+        <div
+          className={cn(
+            "mx-auto",
+            "w-40",
+            variant === "hero" ? "mt-1.5" : "mt-1"
+          )}
+        >
           <MiniSparkline
             data={quote.series}
             height={variant === "hero" ? 44 : 36}
