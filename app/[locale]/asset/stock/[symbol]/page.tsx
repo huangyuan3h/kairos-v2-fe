@@ -25,7 +25,7 @@ import {
 } from "./state/actions";
 import type { State } from "./state/types";
 
-export default function AssetDetailPage() {
+export default function AssetStockDetailPage() {
   const params = useParams<{ locale: string; symbol: string }>();
   const code = decodeURIComponent(params.symbol);
   const locale = decodeURIComponent(params.locale);
@@ -37,7 +37,8 @@ export default function AssetDetailPage() {
     dispatch(tsStart());
     dispatch(companyStart());
 
-    getTimeseries({ code, days: 240 })
+    // Explicitly request stock timeseries for the stock route
+    getTimeseries({ code, asset: "stock", days: 240 })
       .then((res) => {
         if (!active) return;
         dispatch(tsSuccess(res));
