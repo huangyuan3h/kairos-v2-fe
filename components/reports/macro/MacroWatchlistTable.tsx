@@ -39,17 +39,8 @@ type WatchGroup = {
 
 const watchlistGroups: WatchGroup[] = [
   {
-    id: "cn-core-indices",
-    title: "中国市场核心指数",
-    items: [
-      { symbol: "CN:SHCOMP", name: "SHCOMP", description: "上证综指" },
-      { symbol: "CN:CSI300", name: "CSI300", description: "沪深300" },
-      { symbol: "CN:CSI500", name: "CSI500", description: "中证500" },
-    ],
-  },
-  {
-    id: "us-core-indices",
-    title: "美国市场核心指数",
+    id: "us-indices",
+    title: "美国核心指数",
     items: [
       { symbol: "US:SPX", name: "SPX", description: "标普500" },
       { symbol: "US:NDX", name: "NDX", description: "纳斯达克100" },
@@ -57,30 +48,37 @@ const watchlistGroups: WatchGroup[] = [
     ],
   },
   {
-    id: "macro-sentiment",
-    title: "宏观与情绪指标",
+    id: "cn-indices",
+    title: "中国核心指数",
+    items: [
+      { symbol: "CN:CSI300", name: "CSI300", description: "沪深300" },
+      { symbol: "CN:SHCOMP", name: "SHCOMP", description: "上证综指" },
+      { symbol: "CN:CSI500", name: "CSI500", description: "中证500" },
+    ],
+  },
+  {
+    id: "us-etf",
+    title: "美国宽基 ETF",
+    items: [
+      { symbol: "US:SPY", name: "SPY", description: "SPDR S&P 500" },
+      { symbol: "US:QQQ", name: "QQQ", description: "Invesco QQQ" },
+      { symbol: "US:IWM", name: "IWM", description: "iShares Russell 2000" },
+    ],
+  },
+  {
+    id: "macro-commodities",
+    title: "宏观与大宗商品",
     items: [
       { symbol: "GLOBAL:DXY", name: "DXY", description: "美元指数" },
-      { symbol: "GLOBAL:VIX", name: "VIX", description: "芝加哥波动率" },
+      { symbol: "GLOBAL:WTI", name: "WTI", description: "WTI 原油" },
+      { symbol: "GLOBAL:GOLD", name: "GOLD", description: "现货黄金" },
       { symbol: "GLOBAL:MOVE", name: "MOVE", description: "美债波动率" },
     ],
   },
   {
-    id: "commodities",
-    title: "大宗商品与通胀哨兵",
-    items: [
-      { symbol: "GLOBAL:WTI", name: "WTI", description: "WTI 原油" },
-      { symbol: "GLOBAL:GOLD", name: "GOLD", description: "现货黄金" },
-    ],
-  },
-  {
-    id: "china-bluechips",
-    title: "中国龙头个股",
-    items: [
-      { symbol: "SH600519", name: "600519", description: "贵州茅台" },
-      { symbol: "SZ000651", name: "000651", description: "格力电器" },
-      { symbol: "SH601318", name: "601318", description: "中国平安" },
-    ],
+    id: "volatility",
+    title: "波动率指标",
+    items: [{ symbol: "GLOBAL:VIX", name: "VIX", description: "芝加哥波动率" }],
   },
 ];
 
