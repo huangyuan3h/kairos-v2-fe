@@ -1,7 +1,7 @@
 {
   "Dashboard": {
-    "welcome": "Kairos 市场工作台",
-    "description": "在一个页面跟踪指数、持仓与宏观报告。",
+    "welcome": "欢迎来到 Kairos！",
+    "description": "你的极速市场工作台：看盘、分析、行动。",
     "stats": {
       "totalProjects": "总项目数",
       "activeTasks": "进行中任务",

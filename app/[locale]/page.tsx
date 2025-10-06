@@ -36,18 +36,24 @@ export default function Home({
           </p>
         </div>
 
-        {/* Macro Overview (replaced with TradingView-like table) */}
-        <MacroWatchlistTable />
-
-        {/* Reports Section */}
-        <div className="grid grid-cols-1 gap-4">
-          <div className="flex items-center justify-between px-1">
-            <h3 className="text-lg font-medium text-gray-900">Recent Report</h3>
-            <Button asChild variant="outline" size="sm">
-              <Link href={`/${locale}/reports`}>View all</Link>
-            </Button>
+        {/* Watchlist + Recent Reports: 6:4 responsive */}
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
+          <div className="lg:col-span-6">
+            <div className="grid grid-cols-1 gap-4">
+              <div className="flex items-center justify-between px-1">
+                <h3 className="text-lg font-medium text-gray-900">
+                  Recent Report
+                </h3>
+                <Button asChild variant="outline" size="sm">
+                  <Link href={`/${locale}/reports`}>View all</Link>
+                </Button>
+              </div>
+              <RecentReportCard />
+            </div>
           </div>
-          <RecentReportCard />
+          <div className="lg:col-span-4">
+            <MacroWatchlistTable />
+          </div>
         </div>
       </div>
     </Layout>

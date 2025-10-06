@@ -1,7 +1,7 @@
 {
   "Dashboard": {
-    "welcome": "Kairos Market Workspace",
-    "description": "Track indices, portfolio and macro reports in one place.",
+    "welcome": "Welcome to Kairos!",
+    "description": "Your fast market desk—watch, analyze, act.",
     "stats": {
       "totalProjects": "Total Projects",
       "activeTasks": "Active Tasks",
