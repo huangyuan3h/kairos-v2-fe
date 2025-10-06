@@ -1,7 +1,7 @@
 {
   "Dashboard": {
-    "welcome": "Welcome back!",
-    "description": "Here's what's happening with your projects today.",
+    "welcome": "Kairos Market Workspace",
+    "description": "Track indices, portfolio and macro reports in one place.",
     "stats": {
       "totalProjects": "Total Projects",
       "activeTasks": "Active Tasks",

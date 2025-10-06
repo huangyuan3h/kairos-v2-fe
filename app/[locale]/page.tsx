@@ -1,7 +1,7 @@
 import { use } from "react";
 import { Layout } from "@/components/layout";
 import { RecentReportCard } from "@/components/reports/recent-report-card";
-import { MacroIndexOverview } from "@/components/reports";
+import { MacroWatchlistTable } from "@/components/reports";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -28,14 +28,16 @@ export default function Home({
       <div className="space-y-6">
         {/* Welcome Section */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-foreground">
             {t.Dashboard.welcome}
           </h1>
-          <p className="text-gray-600 mt-2">{t.Dashboard.description}</p>
+          <p className="text-muted-foreground mt-2">
+            {t.Dashboard.description}
+          </p>
         </div>
 
-        {/* Macro Overview */}
-        <MacroIndexOverview />
+        {/* Macro Overview (replaced with TradingView-like table) */}
+        <MacroWatchlistTable />
 
         {/* Reports Section */}
         <div className="grid grid-cols-1 gap-4">
