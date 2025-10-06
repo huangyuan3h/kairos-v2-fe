@@ -34,6 +34,19 @@ export type TimeseriesResponse = {
   points: TimeseriesPoint[];
 };
 
+export type SnapshotItem = {
+  symbol: string;
+  type: "index" | "stock" | "unknown";
+  last: number | null;
+  chg: number | null;
+  chgPercent: number | null;
+};
+
+export type SnapshotResponse = {
+  count: number;
+  items: SnapshotItem[];
+};
+
 const ABSOLUTE_API_BASE: string =
   (typeof process !== "undefined" && process.env.NEXT_PUBLIC_API_BASE_URL) ||
   "https://api.kairos-2.it-t.xyz";
@@ -81,4 +94,34 @@ export async function getTimeseries(params: {
     throw new Error(text || `Timeseries failed: ${res.status}`);
   }
   return (await res.json()) as TimeseriesResponse;
+}
+
+export async function getSnapshot(
+  symbols: string[]
+): Promise<SnapshotResponse> {
+  const normalized = Array.from(
+    new Set(
+      symbols.map((s) => s.trim().toUpperCase()).filter((s) => s.length > 0)
+    )
+  );
+
+  if (normalized.length === 0) {
+    throw new Error("Snapshot request requires at least one symbol");
+  }
+
+  const url = new URL("/snapshot", ABSOLUTE_API_BASE);
+  url.searchParams.set("symbols", normalized.join("|"));
+
+  const res = await fetch(url.toString(), {
+    method: "GET",
+    headers: { Accept: "application/json" },
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(text || `Snapshot failed: ${res.status}`);
+  }
+
+  return (await res.json()) as SnapshotResponse;
 }

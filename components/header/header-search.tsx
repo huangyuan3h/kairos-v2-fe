@@ -62,10 +62,16 @@ export function HeaderSearch() {
     }, 300);
   }, [query]);
 
+  function resolveAssetKind(item: CatalogItem): "stock" | "index" {
+    const type = (item.asset_type || "").toString().toLowerCase();
+    return type === "index" ? "index" : "stock";
+  }
+
   function handleSelect(item: CatalogItem) {
     setOpen(false);
     setQuery("");
-    router.push(`/${locale}/asset/${encodeURIComponent(item.symbol)}`);
+    const kind = resolveAssetKind(item);
+    router.push(`/${locale}/asset/${kind}/${encodeURIComponent(item.symbol)}`);
   }
 
   return (
