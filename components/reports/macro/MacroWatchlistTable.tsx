@@ -149,9 +149,9 @@ export function MacroWatchlistTable({
   }, []);
 
   const navigateToSymbol = useCallback(
-    (symbol: string) => {
-      const pathSymbol = symbol.replace(/[^A-Za-z0-9]/g, "-").toLowerCase();
-      router.push(`/${locale}/market/${pathSymbol}`);
+    (symbol: string, type: SnapshotItem["type"] | undefined) => {
+      const href = resolveAssetHref(symbol, type, locale);
+      router.push(href);
     },
     [router, locale]
   );
@@ -270,7 +270,7 @@ export function MacroWatchlistTable({
                     ) => {
                       if (event.key === "Enter" || event.key === " ") {
                         event.preventDefault();
-                        navigateToSymbol(item.symbol);
+                        navigateToSymbol(item.symbol, quote?.type);
                       }
                     };
 
@@ -280,7 +280,9 @@ export function MacroWatchlistTable({
                         className="cursor-pointer"
                         role="button"
                         tabIndex={0}
-                        onClick={() => navigateToSymbol(item.symbol)}
+                        onClick={() =>
+                          navigateToSymbol(item.symbol, quote?.type)
+                        }
                         onKeyDown={handleKeyDown}
                         data-symbol={item.symbol}
                         id={`${groupContentId}-${item.symbol}`}
@@ -355,4 +357,22 @@ function formatType(type: SnapshotItem["type"] | undefined, locale = "en") {
   if (type === "index") return isZh ? "指数" : "Index";
   if (type === "stock") return isZh ? "股票" : "Stock";
   return "";
+}
+
+function resolveAssetHref(
+  symbol: string,
+  type: SnapshotItem["type"] | undefined,
+  locale: string
+) {
+  const encoded = encodeURIComponent(symbol);
+  if (type === "stock") {
+    return `/${locale}/asset/stock/${encoded}`;
+  }
+  if (type === "index") {
+    return `/${locale}/asset/index/${encoded}`;
+  }
+  if (symbol.includes(":")) {
+    return `/${locale}/asset/index/${encoded}`;
+  }
+  return `/${locale}/asset/stock/${encoded}`;
 }
