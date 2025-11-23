@@ -14,7 +14,7 @@ const MIN_QUERY_LENGTH = 2;
 
 export type UseCatalogListParams = {
   market: string;
-  assetType?: "stock" | "index" | "etf";
+  assetType?: "stock" | "index";
   query?: string;
   limit?: number;
 };
@@ -42,16 +42,22 @@ export function useCatalogList(params: UseCatalogListParams) {
       normalizedQuery ?? "",
       limit,
       cursor ?? "",
-    ] as const;
+    ];
   };
 
   const swr = useSWRInfinite<CatalogListResponse, ApiError>(
     getKey,
-    (key) => {
-      const [, marketKey, assetTypeKey, queryKey, limitKey, cursorKey] = key;
+    (
+      _key,
+      marketKey: string,
+      assetTypeKey: "stock" | "index",
+      queryKey: string,
+      limitKey: number,
+      cursorKey: string
+    ) => {
       return fetchCatalogList({
         market: marketKey,
-        assetType: assetTypeKey as "stock" | "index" | "etf",
+        assetType: assetTypeKey,
         q: queryKey || undefined,
         limit: limitKey,
         cursor: cursorKey || undefined,
@@ -98,4 +104,3 @@ export function useCatalogList(params: UseCatalogListParams) {
     refresh,
   };
 }
-
