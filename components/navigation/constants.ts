@@ -7,19 +7,13 @@ export const navItems: NavItem[] = [
     href: "/",
     active: true,
   },
+  {
+    icon: "Table",
+    label: "Resources",
+    href: "/resources",
+  },
   { icon: "PieChart", label: "Portfolio", href: "/portfolio" },
   { icon: "BarChart3", label: "Analysis", href: "/analysis" },
-  { icon: "Users", label: "Users", href: "/users" },
-  {
-    icon: "FileText",
-    label: "Documents",
-    href: "/documents",
-  },
-  {
-    icon: "Settings",
-    label: "Settings",
-    href: "/settings",
-  },
 ];
 
 export const languages: Language[] = [

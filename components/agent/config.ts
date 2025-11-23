@@ -36,8 +36,8 @@ export const PAGE_AGENT_CONFIG: Record<string, AgentConfig> = {
     },
   },
 
-  // Analysis页面 - 完整Agent功能
-  analysis: {
+  // Resources页面 - 完整Agent功能
+  resources: {
     enabled: true,
     showTrigger: true,
     showDialog: true,
@@ -48,21 +48,14 @@ export const PAGE_AGENT_CONFIG: Record<string, AgentConfig> = {
     },
   },
 
-  // Users页面 - 禁用Agent
-  users: {
-    enabled: false,
-    showTrigger: false,
-    showDialog: false,
-  },
-
-  // Documents页面 - 只显示触发按钮，不显示对话框
-  documents: {
+  // Analysis页面 - 完整Agent功能
+  analysis: {
     enabled: true,
     showTrigger: true,
-    showDialog: false,
+    showDialog: true,
     features: {
-      chat: false,
-      history: false,
+      chat: true,
+      history: true,
       keyboardShortcuts: true,
     },
   },
@@ -77,13 +70,6 @@ export const PAGE_AGENT_CONFIG: Record<string, AgentConfig> = {
       history: false,
       keyboardShortcuts: true,
     },
-  },
-
-  // Settings页面 - 禁用Agent
-  settings: {
-    enabled: false,
-    showTrigger: false,
-    showDialog: false,
   },
 };
 

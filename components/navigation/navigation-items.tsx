@@ -10,6 +10,7 @@ import {
   BarChart3,
   Settings,
   PieChart,
+  Table,
 } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -30,6 +31,7 @@ const iconMap = {
   BarChart3: BarChart3,
   Settings: Settings,
   PieChart: PieChart,
+  Table: Table,
 };
 
 const messages = {
