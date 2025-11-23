@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
+  CatalogSearchInline,
   CatalogToolbar,
   CatalogToolbarCopy,
   DEFAULT_TOOLBAR_COPY,
@@ -25,7 +26,14 @@ import {
   formatPrice,
   formatVolume,
 } from "@/lib/utils/formatters";
-import { ArrowUpRight, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 export type ResourceCatalogCopy = {
   title: string;
@@ -214,33 +222,39 @@ export function ResourceCatalogView({
   return (
     <div className="space-y-4">
       <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-        <div className="flex flex-col gap-2 border-b border-gray-100 px-4 py-3 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-lg font-semibold text-foreground">
-              {count.toLocaleString()} {copy.table.resourcesLabel}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {copy.table.subtitle}
-            </p>
+        <div className="flex flex-col gap-3 border-b border-gray-100 px-4 py-3">
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-lg font-semibold text-foreground">
+                {count.toLocaleString()} {copy.table.resourcesLabel}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {copy.table.subtitle}
+              </p>
+            </div>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => refresh()}
+                    disabled={isLoadingInitial || isLoadingMore}
+                    className="rounded-full border border-gray-200 shadow-sm"
+                  >
+                    <Loader2
+                      className={cn(
+                        "h-4 w-4",
+                        isLoadingInitial || isLoadingMore ? "animate-spin" : ""
+                      )}
+                    />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="top">{copy.table.refresh}</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => refresh()}
-              disabled={isLoadingInitial || isLoadingMore}
-            >
-              {isLoadingInitial || isLoadingMore ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <ArrowUpRight className="mr-2 h-4 w-4" />
-              )}
-              {copy.table.refresh}
-            </Button>
-          </div>
-        </div>
 
-        <div className="border-b border-gray-100 px-4 py-3">
           <CatalogToolbar
             market={market}
             assetType={assetType}
@@ -250,13 +264,20 @@ export function ResourceCatalogView({
             onQueryChange={setQuery}
             onSubmitSearch={handleNavigate}
             copy={copy.toolbar}
+            inlineSearch
+          />
+
+          <CatalogSearchInline
+            query={query}
+            onQueryChange={setQuery}
+            onSubmitSearch={handleNavigate}
+            copy={copy.toolbar}
           />
         </div>
 
         {error && (
           <div className="border-b border-destructive/20 bg-destructive/5 px-4 py-2 text-sm text-destructive">
-            {copy.table.errorPrefix}: {error.message} (HTTP{" "}
-            {error.status || 0})
+            {copy.table.errorPrefix}: {error.message} (HTTP {error.status || 0})
           </div>
         )}
 
@@ -300,9 +321,7 @@ export function ResourceCatalogView({
             disabled={!hasMore || isLoadingMore}
             variant="secondary"
           >
-            {isLoadingMore && (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            )}
+            {isLoadingMore && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {hasMore ? copy.table.loadMore : copy.table.noMore}
           </Button>
         </div>
@@ -310,4 +329,3 @@ export function ResourceCatalogView({
     </div>
   );
 }
-

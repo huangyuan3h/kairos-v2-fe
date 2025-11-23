@@ -85,11 +85,11 @@
     "title": "资源列表",
     "description": "浏览跨市场标的并查看实时行情分页数据。",
     "toolbar": {
-      "marketLabel": "市场筛选",
-      "assetTypeLabel": "资产类型",
+      "marketLabel": "市场",
+      "assetTypeLabel": "资产",
       "placeholder": "搜索代码或名称",
       "hint": "输入至少 2 个字符以触发筛选，点击按钮可直接跳转到股票页面。",
-      "actionLabel": "跳转股票页"
+      "actionLabel": "搜索"
     },
     "table": {
       "resourcesLabel": "条资源",

@@ -85,11 +85,11 @@
     "title": "Resource Catalog",
     "description": "Browse cross-market listings with live quotes and pagination.",
     "toolbar": {
-      "marketLabel": "Market Filter",
-      "assetTypeLabel": "Asset Type",
+      "marketLabel": "Market",
+      "assetTypeLabel": "Asset",
       "placeholder": "Search symbol or name",
       "hint": "Enter at least 2 characters to filter. Use the search button to jump to the stock page directly.",
-      "actionLabel": "Go to Symbol"
+      "actionLabel": "Search"
     },
     "table": {
       "resourcesLabel": "resources",
