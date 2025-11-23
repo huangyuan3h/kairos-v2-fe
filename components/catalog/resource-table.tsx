@@ -114,9 +114,7 @@ export function ResourceCatalogView({
 }: ResourceCatalogViewProps) {
   const router = useRouter();
   const [market, setMarket] = useState("CN_A");
-  const [assetType, setAssetType] = useState<"stock" | "index" | "etf">(
-    "stock"
-  );
+  const [assetType, setAssetType] = useState<"stock" | "index">("stock");
   const [query, setQuery] = useState("");
 
   const {
@@ -255,24 +253,28 @@ export function ResourceCatalogView({
             </TooltipProvider>
           </div>
 
-          <CatalogToolbar
-            market={market}
-            assetType={assetType}
-            query={query}
-            onMarketChange={setMarket}
-            onAssetTypeChange={setAssetType}
-            onQueryChange={setQuery}
-            onSubmitSearch={handleNavigate}
-            copy={copy.toolbar}
-            inlineSearch
-          />
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <CatalogToolbar
+              market={market}
+              assetType={assetType}
+              query={query}
+              onMarketChange={setMarket}
+              onAssetTypeChange={setAssetType}
+              onQueryChange={setQuery}
+              onSubmitSearch={handleNavigate}
+              copy={copy.toolbar}
+              inlineSearch
+              className="w-full lg:flex-1"
+            />
 
-          <CatalogSearchInline
-            query={query}
-            onQueryChange={setQuery}
-            onSubmitSearch={handleNavigate}
-            copy={copy.toolbar}
-          />
+            <CatalogSearchInline
+              query={query}
+              onQueryChange={setQuery}
+              onSubmitSearch={handleNavigate}
+              copy={copy.toolbar}
+              className="w-full lg:max-w-md"
+            />
+          </div>
         </div>
 
         {error && (

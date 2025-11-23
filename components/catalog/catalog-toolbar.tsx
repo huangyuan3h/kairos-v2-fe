@@ -6,21 +6,24 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const MARKET_OPTIONS = [
   { value: "CN_A", label: "China A" },
   { value: "US", label: "US" },
-  { value: "INDEX", label: "Index" },
-  { value: "ETF", label: "ETF" },
 ];
 
 const ASSET_TYPE_OPTIONS: {
-  value: "stock" | "index" | "etf";
+  value: "stock" | "index";
   label: string;
 }[] = [
   { value: "stock", label: "Stock" },
-  { value: "index", label: "Index" },
-  { value: "etf", label: "ETF" },
+  { value: "index", label: "Index / ETF" },
 ];
 
 export type CatalogToolbarCopy = {
@@ -41,10 +44,10 @@ export const DEFAULT_TOOLBAR_COPY: CatalogToolbarCopy = {
 
 export type CatalogToolbarProps = {
   market: string;
-  assetType: "stock" | "index" | "etf";
+  assetType: "stock" | "index";
   query: string;
   onMarketChange: (market: string) => void;
-  onAssetTypeChange: (assetType: "stock" | "index" | "etf") => void;
+  onAssetTypeChange: (assetType: "stock" | "index") => void;
   onQueryChange: (value: string) => void;
   onSubmitSearch: () => void;
   className?: string;
@@ -106,7 +109,7 @@ export function CatalogToolbar({
         <Tabs
           value={assetType}
           onValueChange={(value) =>
-            onAssetTypeChange(value as "stock" | "index" | "etf")
+            onAssetTypeChange(value as "stock" | "index")
           }
           className="w-full md:w-auto"
         >
@@ -152,12 +155,16 @@ export function CatalogSearchInline({
   onQueryChange,
   onSubmitSearch,
   copy = DEFAULT_TOOLBAR_COPY,
+  className,
 }: {
   query: string;
   onQueryChange: (value: string) => void;
   onSubmitSearch: () => void;
   copy?: CatalogToolbarCopy;
+  className?: string;
 }) {
+  const [showHint, setShowHint] = useState(false);
+
   const handleEnterKey: React.KeyboardEventHandler<HTMLInputElement> = (
     event
   ) => {
@@ -167,43 +174,38 @@ export function CatalogSearchInline({
     }
   };
 
-  const [showHint, setShowHint] = useState(false);
-
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-3">
-        <Input
-          value={query}
-          onChange={(event) => onQueryChange(event.target.value)}
-          placeholder={copy.placeholder}
-          onKeyDown={handleEnterKey}
-          className="flex-1"
-          onFocus={() => setShowHint(true)}
-          onBlur={() => setShowHint(false)}
-        />
-        <Button
-          type="button"
-          variant="secondary"
-          className="w-full whitespace-nowrap md:w-auto"
-          onClick={onSubmitSearch}
-        >
-          <Search className="mr-2 h-4 w-4" />
-          {copy.actionLabel}
-        </Button>
-        <span
-          className={cn(
-            "hidden text-[11px] text-muted-foreground md:inline-block whitespace-nowrap transition-opacity",
-            showHint ? "opacity-100" : "opacity-0"
-          )}
-        >
-          {copy.hint}
-        </span>
-      </div>
-      {showHint && (
-        <p className="text-[11px] text-muted-foreground md:hidden">
-          {copy.hint}
-        </p>
+    <div
+      className={cn(
+        "flex flex-col gap-2 md:flex-row md:items-center md:justify-end md:gap-3",
+        className
       )}
+    >
+      <TooltipProvider delayDuration={0}>
+        <Tooltip open={showHint}>
+          <TooltipTrigger asChild>
+            <Input
+              value={query}
+              onChange={(event) => onQueryChange(event.target.value)}
+              placeholder={copy.placeholder}
+              onKeyDown={handleEnterKey}
+              className="w-full md:w-72"
+              onFocus={() => setShowHint(true)}
+              onBlur={() => setShowHint(false)}
+            />
+          </TooltipTrigger>
+          <TooltipContent side="top">{copy.hint}</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      <Button
+        type="button"
+        variant="secondary"
+        className="w-full whitespace-nowrap md:w-auto"
+        onClick={onSubmitSearch}
+      >
+        <Search className="mr-2 h-4 w-4" />
+        {copy.actionLabel}
+      </Button>
     </div>
   );
 }
