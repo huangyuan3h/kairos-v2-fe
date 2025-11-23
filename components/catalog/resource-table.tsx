@@ -213,17 +213,6 @@ export function ResourceCatalogView({
 
   return (
     <div className="space-y-4">
-      <CatalogToolbar
-        market={market}
-        assetType={assetType}
-        query={query}
-        onMarketChange={setMarket}
-        onAssetTypeChange={setAssetType}
-        onQueryChange={setQuery}
-        onSubmitSearch={handleNavigate}
-        copy={copy.toolbar}
-      />
-
       <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
         <div className="flex flex-col gap-2 border-b border-gray-100 px-4 py-3 md:flex-row md:items-center md:justify-between">
           <div>
@@ -249,6 +238,19 @@ export function ResourceCatalogView({
               {copy.table.refresh}
             </Button>
           </div>
+        </div>
+
+        <div className="border-b border-gray-100 px-4 py-3">
+          <CatalogToolbar
+            market={market}
+            assetType={assetType}
+            query={query}
+            onMarketChange={setMarket}
+            onAssetTypeChange={setAssetType}
+            onQueryChange={setQuery}
+            onSubmitSearch={handleNavigate}
+            copy={copy.toolbar}
+          />
         </div>
 
         {error && (

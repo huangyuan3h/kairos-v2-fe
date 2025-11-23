@@ -73,20 +73,20 @@ export function CatalogToolbar({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 rounded-lg border border-gray-200 bg-white p-3 shadow-sm sm:p-4",
+        "flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4",
         className
       )}
     >
-      <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-        <p className="text-sm font-medium text-muted-foreground">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
+        <span className="text-sm font-medium text-muted-foreground">
           {copy.marketLabel}
-        </p>
+        </span>
         <Tabs
           value={market}
           onValueChange={onMarketChange}
-          className="w-full lg:w-auto"
+          className="w-full sm:w-auto"
         >
-          <TabsList className="w-full justify-between lg:w-fit">
+          <TabsList className="w-full justify-between sm:w-fit">
             {MARKET_OPTIONS.map((option) => (
               <TabsTrigger key={option.value} value={option.value}>
                 {option.label}
@@ -96,18 +96,18 @@ export function CatalogToolbar({
         </Tabs>
       </div>
 
-      <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-        <p className="text-sm font-medium text-muted-foreground">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
+        <span className="text-sm font-medium text-muted-foreground">
           {copy.assetTypeLabel}
-        </p>
+        </span>
         <Tabs
           value={assetType}
           onValueChange={(value) =>
             onAssetTypeChange(value as "stock" | "index" | "etf")
           }
-          className="w-full lg:w-auto"
+          className="w-full sm:w-auto"
         >
-          <TabsList className="w-full justify-between lg:w-fit">
+          <TabsList className="w-full justify-between sm:w-fit">
             {ASSET_TYPE_OPTIONS.map((option) => (
               <TabsTrigger key={option.value} value={option.value}>
                 {option.label}
@@ -117,27 +117,26 @@ export function CatalogToolbar({
         </Tabs>
       </div>
 
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-        <div className="flex-1">
+      <div className="flex flex-1 flex-col gap-1">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           <Input
             value={query}
             onChange={(event) => onQueryChange(event.target.value)}
             placeholder={copy.placeholder}
             onKeyDown={handleEnterKey}
+            className="flex-1"
           />
-          <p className="mt-1 text-[11px] text-muted-foreground">
-            {copy.hint}
-          </p>
+          <Button
+            type="button"
+            variant="secondary"
+            className="w-full whitespace-nowrap sm:w-auto"
+            onClick={onSubmitSearch}
+          >
+            <Search className="mr-2 h-4 w-4" />
+            {copy.actionLabel}
+          </Button>
         </div>
-        <Button
-          type="button"
-          variant="secondary"
-          className="w-full sm:w-auto"
-          onClick={onSubmitSearch}
-        >
-          <Search className="mr-2 h-4 w-4" />
-          {copy.actionLabel}
-        </Button>
+        <p className="text-[11px] text-muted-foreground">{copy.hint}</p>
       </div>
     </div>
   );
