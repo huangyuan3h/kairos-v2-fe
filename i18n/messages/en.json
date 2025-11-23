@@ -119,9 +119,6 @@
     "dashboard": "Dashboard",
     "resources": "Resources",
     "portfolio": "Portfolio",
-    "analysis": "Analysis",
-    "users": "Users",
-    "documents": "Documents",
-    "settings": "Settings"
+    "analysis": "Analysis"
   }
 }

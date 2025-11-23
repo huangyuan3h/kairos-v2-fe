@@ -60,25 +60,6 @@ export const PAGE_AGENT_CONFIG: Record<string, AgentConfig> = {
     },
   },
 
-  // Users页面 - 禁用Agent
-  users: {
-    enabled: false,
-    showTrigger: false,
-    showDialog: false,
-  },
-
-  // Documents页面 - 只显示触发按钮，不显示对话框
-  documents: {
-    enabled: true,
-    showTrigger: true,
-    showDialog: false,
-    features: {
-      chat: false,
-      history: false,
-      keyboardShortcuts: true,
-    },
-  },
-
   // Analytics页面 - 简化版Agent
   analytics: {
     enabled: true,
@@ -89,13 +70,6 @@ export const PAGE_AGENT_CONFIG: Record<string, AgentConfig> = {
       history: false,
       keyboardShortcuts: true,
     },
-  },
-
-  // Settings页面 - 禁用Agent
-  settings: {
-    enabled: false,
-    showTrigger: false,
-    showDialog: false,
   },
 };
 

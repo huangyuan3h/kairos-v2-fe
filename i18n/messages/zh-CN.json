@@ -119,9 +119,6 @@
     "dashboard": "仪表盘",
     "resources": "资源列表",
     "portfolio": "投资组合",
-    "analysis": "投资分析",
-    "users": "用户",
-    "documents": "文档",
-    "settings": "设置"
+    "analysis": "投资分析"
   }
 }
