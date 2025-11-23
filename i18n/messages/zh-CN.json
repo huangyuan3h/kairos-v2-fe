@@ -81,8 +81,43 @@
       "addToWatchlist": "加入观察"
     }
   },
+  "Resources": {
+    "title": "资源列表",
+    "description": "浏览跨市场标的并查看实时行情分页数据。",
+    "toolbar": {
+      "marketLabel": "市场筛选",
+      "assetTypeLabel": "资产类型",
+      "placeholder": "搜索代码或名称",
+      "hint": "输入至少 2 个字符以触发筛选，点击按钮可直接跳转到股票页面。",
+      "actionLabel": "跳转股票页"
+    },
+    "table": {
+      "resourcesLabel": "条资源",
+      "subtitle": "行情字段实时合并自最新快照",
+      "headers": {
+        "symbol": "代码",
+        "name": "名称",
+        "market": "市场",
+        "type": "类型",
+        "status": "状态",
+        "last": "最新价",
+        "change": "涨跌额",
+        "changePercent": "涨跌幅",
+        "volume": "成交量",
+        "asOf": "时间"
+      },
+      "empty": "未找到结果，请调整筛选条件或尝试其他关键词。",
+      "loadedPrefix": "已加载",
+      "loadedSuffix": "行",
+      "loadMore": "加载更多",
+      "noMore": "没有更多数据",
+      "refresh": "刷新",
+      "errorPrefix": "获取资源列表失败"
+    }
+  },
   "Navigation": {
     "dashboard": "仪表盘",
+    "resources": "资源列表",
     "portfolio": "投资组合",
     "analysis": "投资分析",
     "users": "用户",

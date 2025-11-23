@@ -81,8 +81,43 @@
       "addToWatchlist": "Add to Watchlist"
     }
   },
+  "Resources": {
+    "title": "Resource Catalog",
+    "description": "Browse cross-market listings with live quotes and pagination.",
+    "toolbar": {
+      "marketLabel": "Market Filter",
+      "assetTypeLabel": "Asset Type",
+      "placeholder": "Search symbol or name",
+      "hint": "Enter at least 2 characters to filter. Use the search button to jump to the stock page directly.",
+      "actionLabel": "Go to Symbol"
+    },
+    "table": {
+      "resourcesLabel": "resources",
+      "subtitle": "Showing real-time quotes merged from market snapshot",
+      "headers": {
+        "symbol": "Symbol",
+        "name": "Name",
+        "market": "Market",
+        "type": "Type",
+        "status": "Status",
+        "last": "Last",
+        "change": "Change",
+        "changePercent": "% Change",
+        "volume": "Volume",
+        "asOf": "As of"
+      },
+      "empty": "No results found. Adjust filters or try another keyword.",
+      "loadedPrefix": "Loaded",
+      "loadedSuffix": "rows",
+      "loadMore": "Load more",
+      "noMore": "No more data",
+      "refresh": "Refresh",
+      "errorPrefix": "Failed to load catalog"
+    }
+  },
   "Navigation": {
     "dashboard": "Dashboard",
+    "resources": "Resources",
     "portfolio": "Portfolio",
     "analysis": "Analysis",
     "users": "Users",

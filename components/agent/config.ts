@@ -36,6 +36,18 @@ export const PAGE_AGENT_CONFIG: Record<string, AgentConfig> = {
     },
   },
 
+  // Resources页面 - 完整Agent功能
+  resources: {
+    enabled: true,
+    showTrigger: true,
+    showDialog: true,
+    features: {
+      chat: true,
+      history: true,
+      keyboardShortcuts: true,
+    },
+  },
+
   // Analysis页面 - 完整Agent功能
   analysis: {
     enabled: true,
