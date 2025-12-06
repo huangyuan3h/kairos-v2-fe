@@ -12,6 +12,15 @@ import { ApiError } from "../api/client";
 const DEFAULT_LIMIT = 20;
 const MIN_QUERY_LENGTH = 2;
 
+type CatalogListKey = [
+  "catalog-list",
+  string,
+  "stock" | "index",
+  string,
+  number,
+  string
+];
+
 export type UseCatalogListParams = {
   market: string;
   assetType?: "stock" | "index";
@@ -31,7 +40,7 @@ export function useCatalogList(params: UseCatalogListParams) {
   const getKey = (
     pageIndex: number,
     previousPageData: CatalogListResponse | null
-  ) => {
+  ): CatalogListKey | null => {
     if (!shouldFetch) return null;
     if (pageIndex > 0 && !previousPageData?.nextCursor) return null;
     const cursor = pageIndex === 0 ? undefined : previousPageData?.nextCursor;
@@ -42,19 +51,19 @@ export function useCatalogList(params: UseCatalogListParams) {
       normalizedQuery ?? "",
       limit,
       cursor ?? "",
-    ];
+    ] as CatalogListKey;
   };
 
   const swr = useSWRInfinite<CatalogListResponse, ApiError>(
     getKey,
-    (
-      _key,
-      marketKey: string,
-      assetTypeKey: "stock" | "index",
-      queryKey: string,
-      limitKey: number,
-      cursorKey: string
-    ) => {
+    ([
+      ,
+      marketKey,
+      assetTypeKey,
+      queryKey,
+      limitKey,
+      cursorKey,
+    ]: CatalogListKey) => {
       return fetchCatalogList({
         market: marketKey,
         assetType: assetTypeKey,
