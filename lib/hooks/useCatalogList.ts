@@ -51,12 +51,19 @@ export function useCatalogList(params: UseCatalogListParams) {
       normalizedQuery ?? "",
       limit,
       cursor ?? "",
-    ];
+    ] as CatalogListKey;
   };
 
-  const swr = useSWRInfinite<CatalogListResponse, ApiError, CatalogListKey>(
+  const swr = useSWRInfinite<CatalogListResponse, ApiError>(
     getKey,
-    ([_key, marketKey, assetTypeKey, queryKey, limitKey, cursorKey]) => {
+    ([
+      ,
+      marketKey,
+      assetTypeKey,
+      queryKey,
+      limitKey,
+      cursorKey,
+    ]: CatalogListKey) => {
       return fetchCatalogList({
         market: marketKey,
         assetType: assetTypeKey,
